@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Clientes";
+}
+
+<ol class="breadcrumb mb-4 mt-4">
+    <li class="breadcrumb-item"><a href="">Resumen</a></li>
+    <li class="breadcrumb-item active">Usuarios</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-users me-1"></i>Lista de Clientes
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#FormModal">Crear Nuevo Usuario</button>
+            </div>
+        </div>
+        <hr />
+        <table id="tabla" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Dirección</th>
+                    <th>Telefono</th>
+                    <th>Cedula</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="FormModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="ModalUserCreate">Crear Clientes</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input id="txtid" type="text" value="0" />
+
+                <div class="row  g-2">
+                    <div class="col-sm-6">
+                        <label for="txtnombres" class="form-label">Nombres</label>
+                        <input type="text" class="form-control" id="txtnombres" autocomplete="off">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="txtapellidos" class="form-label">Apellidos</label>
+                        <input type="text" class="form-control" id="txtapellidos" autocomplete="off">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="txtcorreo" class="form-label">Dirección</label>
+                        <input type="email" class="form-control" id="txtdireccion"  autocomplete="off">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="txtapellidos" class="form-label">Telefono</label>
+                        <input type="text" class="form-control" id="txttelefono" autocomplete="off">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="txtapellidos" class="form-label">Cedula</label>
+                        <input type="text" class="form-control" id="txtcedula" autocomplete="off">
+                    </div>
+                  
+
+                </div>
+                <div class="row">
+                    @*<div class="col-12 mt-2">
+                        <div id="mensajeError" class="alert alert-danger" role="alert">
+                            This is a danger alert—check it out!
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="Guardar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <style>
+        .btn-icon {
+            margin-right: 5px;
+        }
+    </style>
+   }
