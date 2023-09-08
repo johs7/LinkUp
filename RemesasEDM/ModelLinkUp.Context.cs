@@ -13,10 +13,10 @@ namespace RemesasEDM
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class LinkupEntities1 : DbContext
+    public partial class LinkupEntities : DbContext
     {
-        public LinkupEntities1()
-            : base("name=LinkupEntities1")
+        public LinkupEntities()
+            : base("name=LinkupEntities")
         {
         }
     

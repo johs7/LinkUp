@@ -2,21 +2,27 @@
 using System.Data.Entity;
 using System.Linq;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace RemesasDAO
 {
-   public class Client
+   public class CDClientes
     {
-        LinkupEntities1 db= new LinkupEntities1();
+        LinkupEntities db= new LinkupEntities();
         public bool Agregar(Clientes cli)
         {
             db.Clientes.Add(cli);
             return (db.SaveChanges() > 0 ? true : false);
         }
+        public List<Clientes> Listar()
+        {
+            return (db.Clientes.ToList());
+
+        }
 
         public bool Eliminar(Clientes cli)
         {
-            Clientes clientes = db.Clientes.Remove(cli);
+            Clientes c= db.Clientes.Remove(cli);
             return (db.SaveChanges() > 0 ? true : false);
         }
 
@@ -25,7 +31,7 @@ namespace RemesasDAO
             db.Entry(cli).State = EntityState.Modified;
             return (db.SaveChanges() > 0 ? true : false);
         }
-
+       
        
     }
 }

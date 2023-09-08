@@ -58,7 +58,7 @@
                     </div>
                     <div class="col-sm-6">
                         <label for="txtcorreo" class="form-label">Dirección</label>
-                        <input type="email" class="form-control" id="txtdireccion"  autocomplete="off">
+                        <input type="email" class="form-control" id="txtdireccion" autocomplete="off">
                     </div>
                     <div class="col-sm-6">
                         <label for="txtapellidos" class="form-label">Telefono</label>
@@ -68,15 +68,15 @@
                         <label for="txtapellidos" class="form-label">Cedula</label>
                         <input type="text" class="form-control" id="txtcedula" autocomplete="off">
                     </div>
-                  
+
 
                 </div>
                 <div class="row">
                     @*<div class="col-12 mt-2">
-                        <div id="mensajeError" class="alert alert-danger" role="alert">
-                            This is a danger alert—check it out!
-                        </div>
-                    </div>*@
+                            <div id="mensajeError" class="alert alert-danger" role="alert">
+                                This is a danger alert—check it out!
+                            </div>
+                        </div>*@
                 </div>
             </div>
             <div class="modal-footer">
@@ -93,4 +93,16 @@
             margin-right: 5px;
         }
     </style>
-   }
+    <script>
+        jQuery.ajax({
+            url: '@Url.Action("ListarClientes","Home")',
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                debugger
+                var texto1 = "hola"
+                console.log(data)
+            }
+        })
+    </script>
+}
