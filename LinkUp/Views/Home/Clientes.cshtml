@@ -72,11 +72,11 @@
 
                 </div>
                 <div class="row">
-                    @*<div class="col-12 mt-2">
-                            <div id="mensajeError" class="alert alert-danger" role="alert">
-                                This is a danger alert—check it out!
-                            </div>
-                        </div>*@
+                    <div class="col-12 mt-2">
+                        <div id="mensajeError" class="alert alert-danger" role="alert">
+                            This is a danger alert—check it out!
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -95,15 +95,7 @@
     </style>
     <script>
         var tabladata;
-        jQuery.ajax({
-            url: '@Url.Action("ListarClientes","Home")',
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-
-                console.log(data)
-            }
-        })
+       
         tabladata = $("#tabla").DataTable({
             responsive: true,
             ordering: false,
@@ -118,9 +110,48 @@
                 { "data": "Direccion" },
                 { "data": "Telefono" },
                 { "data": "Cedula" }
+                ,
+                {
+                    data: null,
+                    defaultContent: '<button type="button" class="btn btn-primary btn-sm btn-icon btn-editar "><i class="fas fa-pen"></i></button>' +
+                    '<button type="button" class="btn btn-danger btn-sm btn-icon btn-eliminar" ><i class="fas fa-trash"></i></button>',
+                    orderable: false,
+                    searchable: false,
+                    width: "100px"
+                }
+            ],
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+            }
 
-            ]
+            
         });
+        function abrirModal(json) {
+            $("#txtid").val(0);
+            $("#txtnombres").val("");
+            $("#txtapellidos").val("");
+            $("#txtdireccion").val("");
+            $("#txttelefono").val(0);
+            $("#txtcedula").val("");
+            $("#mensajeError").hide();
+
+
+            if (json != null) {
+                $("#txtid").val(json.Id);
+                $("#txtnombres").val(json.Nombres);
+                $("#txtapellidos").val(json.Apellidos);
+                $("#txtdireccion").val(json.Direccion);
+                $("#txttelefono").val(json.Telefono);
+                $("#txtcedula").val(json.Cedula);
+            }
+            $("#FormModal").modal("show");
+        }
+        $("#tabla tbody").on("click", '.btn-editar', function () {
+            filaseleccionada = $(this).closest("tr");
+            var data = tabladata.row(filaseleccionada).data();
+            abrirModal(data);
+
+        })
 
 
 
