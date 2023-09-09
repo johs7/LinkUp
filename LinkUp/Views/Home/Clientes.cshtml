@@ -16,7 +16,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-12">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#FormModal">Crear Nuevo Usuario</button>
+                <button type="button" class="btn btn-success" onclick="abrirModal(null)">Crear Nuevo Usuario</button>
             </div>
         </div>
         <hr />
@@ -146,6 +146,7 @@
             }
             $("#FormModal").modal("show");
         }
+
         $("#tabla tbody").on("click", '.btn-editar', function () {
             filaseleccionada = $(this).closest("tr");
             var data = tabladata.row(filaseleccionada).data();
