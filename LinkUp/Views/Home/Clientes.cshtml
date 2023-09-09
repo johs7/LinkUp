@@ -131,7 +131,7 @@
         $("#txtnombres").val("");
         $("#txtapellidos").val("");
         $("#txtdireccion").val("");
-        $("#txttelefono").val(0);
+        $("#txttelefono").val("");
         $("#txtcedula").val("");
         $("#mensajeError").hide();
 
@@ -169,6 +169,7 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
+                $(".modal-body").LoadingOverlay("hide");
                 if (Clientes.Id == 0) {
                     if (data.resultado != 0) {
                         Clientes.Id = data.resultado;
@@ -181,7 +182,19 @@
                 } else {
                     tabladata.row(filaseleccionada).data(Clientes).draw(false);
                 }
-            }
+
+            }, error: function (error) {
+                $(".modal-body").LoadingOverlay("hide")
+                $("#mensajeError").text("Error Ajax");
+                $("#mensajeError").show();
+            },
+            beforeSend: function () {
+                $(".modal-body").LoadingOverlay("show", {
+                    imageresizeFactor: 2,
+                    text: "Guardando...",
+                    size: 14
+                })
+            },
         });
     }
     </script>
