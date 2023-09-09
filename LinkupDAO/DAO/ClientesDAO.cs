@@ -1,14 +1,16 @@
-﻿using RemesasEDM;
-using System.Data.Entity;
-using System.Linq;
-using System.ComponentModel;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using LinkupEDM.AppModel;
+using System.Data.Entity;
 
-namespace RemesasDAO
+namespace LinkupDAO.DAO
 {
-   public class CDClientes
+    public class ClientesDAO
     {
-        LinkupEntities db= new LinkupEntities();
+        Model1Container db = new Model1Container();
         public bool Agregar(Clientes cli)
         {
             db.Clientes.Add(cli);
@@ -22,7 +24,7 @@ namespace RemesasDAO
 
         public bool Eliminar(Clientes cli)
         {
-            Clientes c= db.Clientes.Remove(cli);
+            Clientes c = db.Clientes.Remove(cli);
             return (db.SaveChanges() > 0 ? true : false);
         }
 
@@ -31,7 +33,5 @@ namespace RemesasDAO
             db.Entry(cli).State = EntityState.Modified;
             return (db.SaveChanges() > 0 ? true : false);
         }
-       
-       
     }
 }

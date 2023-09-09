@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RemesasEDM
+namespace LinkupEDM.AppModel
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class LinkupEntities : DbContext
+    public partial class Model1Container : DbContext
     {
-        public LinkupEntities()
-            : base("name=LinkupEntities")
+        public Model1Container()
+            : base("name=Model1Container")
         {
         }
     

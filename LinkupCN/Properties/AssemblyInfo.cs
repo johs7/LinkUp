@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // La información general de un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
-[assembly: AssemblyTitle("RemesasDAO")]
+[assembly: AssemblyTitle("LinkupCN")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("RemesasDAO")]
-[assembly: AssemblyCopyright("Copyright ©  2023")]
+[assembly: AssemblyCompany("HP Inc.")]
+[assembly: AssemblyProduct("LinkupCN")]
+[assembly: AssemblyCopyright("Copyright © HP Inc. 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // El siguiente GUID sirve como id. de typelib si este proyecto se expone a COM.
-[assembly: Guid("9fde27fb-9d8e-4ca6-8277-4dd5b0488772")]
+[assembly: Guid("458b7963-f4b8-478e-afae-410cc53d5164")]
 
 // La información de versión de un ensamblado consta de los cuatro valores siguientes:
 //

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using CapaNegocio;
-using RemesasEDM;
+using LinkupCN.CN;
+using LinkupDAO.DAO;
+using LinkupEDM.AppModel;
 using System.Web.Mvc;
 
 namespace LinkUp.Controllers
@@ -39,10 +40,9 @@ namespace LinkUp.Controllers
         {
             List<Clientes> oLista = new List<Clientes>();
 
-            oLista = new CNClientes().Listar();
+            oLista = new ClientesDAO().Listar();
 
             return Json(new { data = oLista }, JsonRequestBehavior.AllowGet);
         }
-
     }
 }

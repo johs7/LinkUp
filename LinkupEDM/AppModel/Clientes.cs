@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RemesasEDM
+namespace LinkupEDM.AppModel
 {
     using System;
     using System.Collections.Generic;

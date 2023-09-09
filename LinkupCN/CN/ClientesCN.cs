@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using RemesasDAO;
-using RemesasEDM;
 using System.Threading.Tasks;
+using LinkupDAO.DAO;
+using LinkupEDM.AppModel;
 
-namespace CapaNegocio
+namespace LinkupCN.CN
 {
-    public class CNClientes
+    public class ClientesCN
     {
-        private CDClientes objCapaDato = new CDClientes();
+        private ClientesDAO op = new ClientesDAO();
+
         public List<Clientes> Listar()
         {
-            return objCapaDato.Listar();
+            return op.Listar();
         }
-
     }
 }
