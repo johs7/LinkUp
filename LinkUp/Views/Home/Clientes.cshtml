@@ -94,82 +94,95 @@
         }
     </style>
     <script>
-        var tabladata; // Declarar la variable en el ámbito global
-        var filaseleccionada;
-       
-        tabladata = $("#tabla").DataTable({
-            responsive: true,
-            ordering: false,
-            "ajax": {
-                url: '@Url.Action("ListarClientes","Home")',
-                type: "GET",
-                dataType: "json"
-            },
-            "columns": [
-                { "data": "Nombres"},
-                { "data": "Apellidos" },
-                { "data": "Direccion" },
-                { "data": "Telefono" },
-                { "data": "Cedula" }
-                ,
-                {
-                    data: null,
-                    defaultContent: '<button type="button" class="btn btn-primary btn-sm btn-icon btn-editar "><i class="fas fa-pen"></i></button>' +
-                    '<button type="button" class="btn btn-danger btn-sm btn-icon btn-eliminar" ><i class="fas fa-trash"></i></button>',
-                    orderable: false,
-                    searchable: false,
-                    width: "100px"
+    var tabladata; // Declarar la variable en el ámbito global
+    var filaseleccionada;
+
+    tabladata = $("#tabla").DataTable({
+        responsive: true,
+        ordering: false,
+        "ajax": {
+            url: '@Url.Action("ListarClientes","Home")',
+            type: "GET",
+            dataType: "json"
+        },
+        "columns": [
+            { "data": "Nombres"},
+            { "data": "Apellidos" },
+            { "data": "Direccion" },
+            { "data": "Telefono" },
+            { "data": "Cedula" }
+            ,
+            {
+                data: null,
+                defaultContent: '<button type="button" class="btn btn-primary btn-sm btn-icon btn-editar "><i class="fas fa-pen"></i></button>' +
+                '<button type="button" class="btn btn-danger btn-sm btn-icon btn-eliminar" ><i class="fas fa-trash"></i></button>',
+                orderable: false,
+                searchable: false,
+                width: "100px"
+            }
+        ],
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+        }
+    });
+
+    function abrirModal(json) {
+        $("#txtid").val(0);
+        $("#txtnombres").val("");
+        $("#txtapellidos").val("");
+        $("#txtdireccion").val("");
+        $("#txttelefono").val(0);
+        $("#txtcedula").val("");
+        $("#mensajeError").hide();
+
+        if (json != null) {
+            $("#txtid").val(json.Id);
+            $("#txtnombres").val(json.Nombres);
+            $("#txtapellidos").val(json.Apellidos);
+            $("#txtdireccion").val(json.Direccion);
+            $("#txttelefono").val(json.Telefono);
+            $("#txtcedula").val(json.Cedula);
+        }
+        $("#FormModal").modal("show");
+    }
+
+    $("#tabla tbody").on("click", '.btn-editar', function () {
+        filaseleccionada = $(this).closest("tr");
+        var data = tabladata.row(filaseleccionada).data();
+        abrirModal(data);
+    });
+
+    function Guardar() {
+        var Clientes = {
+            Id: $("#txtid").val(),
+            Nombres: $("#txtnombres").val(),
+            Apellidos: $("#txtapellidos").val(),
+            Direccion: $("#txtdireccion").val(),
+            Telefono: $("#txttelefono").val(),
+            Cedula: $("#txtcedula").val(),
+        };
+
+        jQuery.ajax({
+            url: '@Url.Action("GuardarClientes", "Home")',
+            type: "POST",
+            data: JSON.stringify({ obj: Clientes }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (Clientes.Id == 0) {
+                    if (data.resultado != 0) {
+                        Clientes.Id = data.resultado;
+                        tabladata.row.add(Clientes).draw(false);
+                        $("#FormModal").modal("hide");
+                    } else {
+                        $("#mensajeError").text(data.mensaje);
+                        $("#mensajeError").show();
+                    }
+                } else {
+                    tabladata.row(filaseleccionada).data(Clientes).draw(false);
                 }
-            ],
-            language: {
-                url: "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
             }
-
-            
         });
-        function abrirModal(json) {
-            $("#txtid").val(0);
-            $("#txtnombres").val("");
-            $("#txtapellidos").val("");
-            $("#txtdireccion").val("");
-            $("#txttelefono").val(0);
-            $("#txtcedula").val("");
-            $("#mensajeError").hide();
-
-
-            if (json != null) {
-                $("#txtid").val(json.Id);
-                $("#txtnombres").val(json.Nombres);
-                $("#txtapellidos").val(json.Apellidos);
-                $("#txtdireccion").val(json.Direccion);
-                $("#txttelefono").val(json.Telefono);
-                $("#txtcedula").val(json.Cedula);
-            }
-            $("#FormModal").modal("show");
-        }
-
-        $("#tabla tbody").on("click", '.btn-editar', function () {
-            filaseleccionada = $(this).closest("tr");
-            var data = tabladata.row(filaseleccionada).data();
-            abrirModal(data);
-
-        })
-        function Guadar() {
-            var Clientes = {
-                Id: $("#txtid").val(),
-                Nombres: $("#txtnombres").val(),
-                Apellidos: $("#txtapellidos").val(),
-                Direccion: $("#txtdireccion").val(),
-                Telefono: $("#txttelefono").val(),
-                Cedula: $("#txtcedula").val(),
-            }
-
-        }
-
-
-
-
-
-
+    }
     </script>
 }

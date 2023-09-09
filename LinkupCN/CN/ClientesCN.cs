@@ -39,7 +39,50 @@ namespace LinkupCN.CN
             {
                 mensaje = "El telefono del cliente es obligatorio";
             }
-            return op.Agregar(obj, out mensaje);
+            if (string.IsNullOrEmpty(mensaje))
+            {
+                return op.Agregar(obj, out mensaje);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        public bool Editar(Clientes obj, out string mensaje)
+        {
+            mensaje = string.Empty;
+            if (string.IsNullOrEmpty(obj.Nombres) || string.IsNullOrWhiteSpace(obj.Nombres))
+            {
+                mensaje = "El Nombre del cliente es obligatorio";
+            }
+            if (string.IsNullOrEmpty(obj.Apellidos) || string.IsNullOrWhiteSpace(obj.Apellidos))
+            {
+                mensaje = "Los apellidos del cliente es obligatorio";
+            }
+            if (string.IsNullOrEmpty(obj.Direccion) || string.IsNullOrWhiteSpace(obj.Direccion))
+            {
+                mensaje = "La Direccion del cliente es obligatorio";
+            }
+            if (string.IsNullOrEmpty(obj.Cedula) || string.IsNullOrWhiteSpace(obj.Cedula))
+            {
+                mensaje = "La Cedula del cliente es obligatoria";
+            }
+            if (obj.Telefono == 0)
+            {
+                mensaje = "El telefono del cliente es obligatorio";
+            }
+            if (string.IsNullOrEmpty(mensaje))
+            {
+                return op.Modificar(obj, out mensaje);
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool Eliminar(Clientes obj,out string mensaje)
+        {
+            return op.Eliminar(obj,out mensaje);
         }
     }
 }

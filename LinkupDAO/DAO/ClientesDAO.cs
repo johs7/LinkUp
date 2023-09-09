@@ -40,16 +40,54 @@ namespace LinkupDAO.DAO
 
         }
 
-        public bool Eliminar(Clientes cli)
+        public bool Eliminar(Clientes cli, out string mensaje)
         {
-            Clientes c = db.Clientes.Remove(cli);
-            return (db.SaveChanges() > 0 ? true : false);
+            try
+            {
+                Clientes c = db.Clientes.Remove(cli);
+                int result = db.SaveChanges();
+                if (result > 0)
+                {
+                    mensaje = "Cliente eliminado exitosamente";
+                    return true;
+                }
+                else
+                {
+                    mensaje = "No se pudo eliminar el cliente";
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                mensaje = $"Error al eliminar el cliente: {ex.Message}";
+                return false;
+            }
         }
 
-        public bool Modificar(Clientes cli)
+
+        public bool Modificar(Clientes cli, out string mensaje)
         {
-            db.Entry(cli).State = EntityState.Modified;
-            return (db.SaveChanges() > 0 ? true : false);
+            try
+            {
+                db.Entry(cli).State = EntityState.Modified;
+                int result = db.SaveChanges();
+                if (result > 0)
+                {
+                    mensaje = "Cliente modificado exitosamente";
+                    return true;
+                }
+                else
+                {
+                    mensaje = "No se pudo modificar el cliente";
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                mensaje = $"Error al modificar el cliente: {ex.Message}";
+                return false;
+            }
         }
+
     }
 }

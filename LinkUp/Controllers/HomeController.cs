@@ -40,9 +40,35 @@ namespace LinkUp.Controllers
         {
             List<Clientes> oLista = new List<Clientes>();
 
-            oLista = new ClientesDAO().Listar();
+            oLista = new ClientesCN().Listar();
 
             return Json(new { data = oLista }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult GuardarClientes(Clientes obj)
+        {
+            object resultado;
+            string mensaje = string.Empty;
+
+            if (obj.Id == 0)
+            {
+                resultado = new ClientesCN().Agregar(obj, out mensaje);
+            }
+            else
+            {
+                resultado = new ClientesCN().Editar(obj, out mensaje);
+            }
+            return Json(new { resultado = resultado, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult EliminarClientes(Clientes obj)
+        {
+            bool respuesta = false;
+            string mensaje = string.Empty;
+
+            respuesta = new ClientesCN().Eliminar(obj, out mensaje);
+            return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
         }
     }
 }
