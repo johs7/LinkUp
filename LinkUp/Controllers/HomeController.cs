@@ -62,12 +62,12 @@ namespace LinkUp.Controllers
         }
 
         [HttpPost]
-        public JsonResult EliminarClientes(Clientes obj)
+        public JsonResult EliminarClientes(int id)
         {
             bool respuesta = false;
             string mensaje = string.Empty;
 
-            respuesta = new ClientesCN().Eliminar(obj, out mensaje);
+            respuesta = new ClientesCN().Eliminar(id, out mensaje);
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
         }
     }

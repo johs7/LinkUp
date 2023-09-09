@@ -40,20 +40,30 @@ namespace LinkupDAO.DAO
 
         }
 
-        public bool Eliminar(Clientes cli, out string mensaje)
+        public bool Eliminar(int id, out string mensaje)
         {
             try
             {
-                Clientes c = db.Clientes.Remove(cli);
-                int result = db.SaveChanges();
-                if (result > 0)
+                Clientes cliente = db.Clientes.FirstOrDefault(c => c.Id == id);
+
+                if (cliente != null)
                 {
-                    mensaje = "Cliente eliminado exitosamente";
-                    return true;
+                    db.Clientes.Remove(cliente);
+                    int result = db.SaveChanges();
+                    if (result > 0)
+                    {
+                        mensaje = "Cliente eliminado exitosamente";
+                        return true;
+                    }
+                    else
+                    {
+                        mensaje = "No se pudo eliminar el cliente";
+                        return false;
+                    }
                 }
                 else
                 {
-                    mensaje = "No se pudo eliminar el cliente";
+                    mensaje = "Cliente no encontrado";
                     return false;
                 }
             }
@@ -63,6 +73,7 @@ namespace LinkupDAO.DAO
                 return false;
             }
         }
+
 
 
         public bool Modificar(Clientes cli, out string mensaje)

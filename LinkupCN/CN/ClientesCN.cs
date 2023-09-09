@@ -80,9 +80,10 @@ namespace LinkupCN.CN
                 return false;
             }
         }
-        public bool Eliminar(Clientes obj,out string mensaje)
+        public bool Eliminar(int id, out string Mensaje)
         {
-            return op.Eliminar(obj,out mensaje);
+            var cliente = new Clientes { Id = id };
+            return op.Eliminar(id, out Mensaje);
         }
     }
 }
