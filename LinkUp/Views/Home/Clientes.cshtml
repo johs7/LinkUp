@@ -45,7 +45,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <input id="txtid" type="text" value="0" />
+                <input id="txtid" type="text" value="0" hidden="hidden"  />
 
                 <div class="row  g-2">
                     <div class="col-sm-6">
@@ -218,9 +218,10 @@ function Guardar() {
             }
         },
         error: function (error) {
-            $(".modal-body").LoadingOverlay("hide");
+          
             $("#mensajeError").text("Error Ajax");
             $("#mensajeError").show();
+            $(".modal-body").LoadingOverlay("hide");
         },
         beforeSend: function () {
             $(".modal-body").LoadingOverlay("show", {
@@ -231,6 +232,5 @@ function Guardar() {
         },
     });
 }
-
     </script>
 }
