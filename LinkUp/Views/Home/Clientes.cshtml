@@ -94,7 +94,8 @@
         }
     </style>
     <script>
-        var tabladata;
+        var tabladata; // Declarar la variable en el ámbito global
+        var filaseleccionada;
        
         tabladata = $("#tabla").DataTable({
             responsive: true,
@@ -153,6 +154,17 @@
             abrirModal(data);
 
         })
+        function Guadar() {
+            var Clientes = {
+                Id: $("#txtid").val(),
+                Nombres: $("#txtnombres").val(),
+                Apellidos: $("#txtapellidos").val(),
+                Direccion: $("#txtdireccion").val(),
+                Telefono: $("#txttelefono").val(),
+                Cedula: $("#txtcedula").val(),
+            }
+
+        }
 
 
 
