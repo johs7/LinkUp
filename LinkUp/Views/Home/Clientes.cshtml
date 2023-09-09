@@ -94,15 +94,38 @@
         }
     </style>
     <script>
+        var tabladata;
         jQuery.ajax({
             url: '@Url.Action("ListarClientes","Home")',
             type: "GET",
             dataType: "json",
             success: function (data) {
-                debugger
-                var texto1 = "hola"
+
                 console.log(data)
             }
         })
+        tabladata = $("#tabla").DataTable({
+            responsive: true,
+            ordering: false,
+            "ajax": {
+                url: '@Url.Action("ListarClientes","Home")',
+                type: "GET",
+                dataType: "json"
+            },
+            "columns": [
+                { "data": "Nombres"},
+                { "data": "Apellidos" },
+                { "data": "Direccion" },
+                { "data": "Telefono" },
+                { "data": "Cedula" }
+
+            ]
+        });
+
+
+
+
+
+
     </script>
 }
