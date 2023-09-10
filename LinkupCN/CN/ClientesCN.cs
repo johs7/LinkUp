@@ -12,13 +12,66 @@ namespace LinkupCN.CN
     {
         private ClientesDAO op = new ClientesDAO();
 
-        public List<Clientes> Listar()
+
+        public static bool ValidarCedula(string cedula)
+        {
+            //____________________________Validar Longitud_________________________
+            if (string.IsNullOrEmpty(cedula) || cedula.Length != 16)
+            {
+                return false;
+            }
+
+            //_______________________________Validar Solo Numeros_________________________
+            if (!cedula.Substring(0, 3).All(char.IsDigit) || !cedula.Substring(4, 6).All(char.IsDigit) || !cedula.Substring(11, 4).All(char.IsDigit))
+            {
+                return false;
+            }
+
+            //________________________VAlidar DIa, mes, año____________________________
+            int Validia = Convert.ToInt32(cedula.Substring(4, 2));
+
+            if (Validia > 31 || Validia < 1)
+            {
+                return false;
+            }
+
+            int ValiMes = Convert.ToInt32(cedula.Substring(6, 2));
+
+            if (ValiMes < 1 || ValiMes > 12)
+            {
+                return false;
+            }
+
+            //________________________Ultima Letra_______________________________________
+            if (!char.IsLetter(cedula.Last()))
+            {
+                return false;
+            }
+
+            //________________________Validar Guiones__________________________________________
+            if (!System.Text.RegularExpressions.Regex.IsMatch(cedula.Substring(3, 1), "[-]") || !System.Text.RegularExpressions.Regex.IsMatch(cedula.Substring(10, 1), "[-]"))
+            {
+                return false;
+            }
+
+            // Si todos los validadores pasan, entonces la cédula es válida.
+            return true;
+        }
+
+    public List<Clientes> Listar()
         {
             return op.Listar();
         }
+
         public int Agregar(Clientes obj,out string mensaje)
         {
+
             mensaje = string.Empty;
+            if (!ValidarCedula(obj.Cedula))
+            {
+                mensaje = "La Cédula del cliente es inválida";
+            }
+
             if (string.IsNullOrEmpty(obj.Nombres) || string.IsNullOrWhiteSpace(obj.Nombres))
             {
                 mensaje = "El Nombre del cliente es obligatorio";
@@ -51,6 +104,11 @@ namespace LinkupCN.CN
         public bool Editar(Clientes obj, out string mensaje)
         {
             mensaje = string.Empty;
+
+            if (!ValidarCedula(obj.Cedula))
+            {
+                mensaje = "La Cédula del cliente es inválida";
+            }
             if (string.IsNullOrEmpty(obj.Nombres) || string.IsNullOrWhiteSpace(obj.Nombres))
             {
                 mensaje = "El Nombre del cliente es obligatorio";
