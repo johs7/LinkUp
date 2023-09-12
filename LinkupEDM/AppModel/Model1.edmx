@@ -15,6 +15,8 @@
           <Property Name="Direccion" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Telefono" Type="int" Nullable="false" />
           <Property Name="Cedula" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Clave" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityContainer Name="Model1StoreContainer">
           <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
@@ -36,6 +38,8 @@
           <Property Name="Direccion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Telefono" Type="Int32" Nullable="false" />
           <Property Name="Cedula" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="Correo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Clave" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -48,6 +52,8 @@
           <EntitySetMapping Name="Clientes">
             <EntityTypeMapping TypeName="Model1.Clientes">
               <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
                 <ScalarProperty Name="Cedula" ColumnName="Cedula" />
                 <ScalarProperty Name="Telefono" ColumnName="Telefono" />
                 <ScalarProperty Name="Direccion" ColumnName="Direccion" />

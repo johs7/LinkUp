@@ -88,6 +88,14 @@ namespace LinkupCN.CN
             {
                 mensaje = "La Cedula del cliente es obligatoria";
             }
+            if (string.IsNullOrEmpty(obj.Correo) || string.IsNullOrWhiteSpace(obj.Correo))
+            {
+                mensaje = "El correo del cliente es obligatorio";
+            }
+            if (string.IsNullOrEmpty(obj.Clave) || string.IsNullOrWhiteSpace(obj.Clave))
+            {
+                mensaje = "La clave del cliente es obligatoria";
+            }
             if (obj.Telefono==0)
             {
                 mensaje = "El telefono del cliente es obligatorio";
@@ -124,6 +132,14 @@ namespace LinkupCN.CN
             if (string.IsNullOrEmpty(obj.Cedula) || string.IsNullOrWhiteSpace(obj.Cedula))
             {
                 mensaje = "La Cedula del cliente es obligatoria";
+            }
+            if (string.IsNullOrEmpty(obj.Correo) || string.IsNullOrWhiteSpace(obj.Correo))
+            {
+                mensaje = "El correo del cliente es obligatorio";
+            }
+            if (string.IsNullOrEmpty(obj.Clave) || string.IsNullOrWhiteSpace(obj.Clave))
+            {
+                mensaje = "La clave del cliente es obligatoria";
             }
             if (obj.Telefono == 0)
             {

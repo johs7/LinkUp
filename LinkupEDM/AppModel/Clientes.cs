@@ -20,5 +20,7 @@ namespace LinkupEDM.AppModel
         public string Direccion { get; set; }
         public int Telefono { get; set; }
         public string Cedula { get; set; }
+        public string Correo { get; set; }
+        public string Clave { get; set; }
     }
 }
