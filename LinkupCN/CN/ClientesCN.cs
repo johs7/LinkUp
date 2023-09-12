@@ -128,6 +128,7 @@ namespace LinkupCN.CN
             if (obj.Telefono == 0)
             {
                 mensaje = "El telefono del cliente es obligatorio";
+                
             }
             if (string.IsNullOrEmpty(mensaje))
             {

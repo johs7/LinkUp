@@ -1,7 +1,7 @@
 ﻿
-@{
-    ViewBag.Title = "Clientes";
-}
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 
 <ol class="breadcrumb mb-4 mt-4">
     <li class="breadcrumb-item"><a href="">Resumen</a></li>
@@ -45,7 +45,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <input id="txtid" type="text" value="0" hidden="hidden"  />
+                <input id="txtid" type="text" value="0" hidden="hidden" />
 
                 <div class="row  g-2">
                     <div class="col-sm-6">
@@ -218,7 +218,7 @@ function Guardar() {
             }
         },
         error: function (error) {
-          
+
             $("#mensajeError").text("Error Ajax");
             $("#mensajeError").show();
             $(".modal-body").LoadingOverlay("hide");

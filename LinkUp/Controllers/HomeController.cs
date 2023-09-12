@@ -54,10 +54,11 @@ namespace LinkUp.Controllers
             {
                 resultado = new ClientesCN().Agregar(obj, out mensaje);
             }
-            else
+            else 
             {
                 resultado = new ClientesCN().Editar(obj, out mensaje);
             }
+
             return Json(new { resultado = resultado, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
         }
 
