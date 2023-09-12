@@ -102,7 +102,10 @@ namespace LinkupCN.CN
             }
             if (string.IsNullOrEmpty(mensaje))
             {
+                string clave = obj.Clave;
+                obj.Clave = CN.RecursosCN.ConvertirSha256(clave);
                 return op.Agregar(obj, out mensaje);
+              
             }
             else
             {
