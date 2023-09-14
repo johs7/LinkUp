@@ -15,7 +15,10 @@ namespace LinkUp.Controllers
         {
             return View();
         }
-
+        public ActionResult Register()
+        {
+            return View();
+        }
 
         [HttpPost]
         public ActionResult Index(string correo,string clave)
