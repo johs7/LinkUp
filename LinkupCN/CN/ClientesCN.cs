@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using LinkupDAO.DAO;
 using LinkupEDM.AppModel;
@@ -12,7 +13,16 @@ namespace LinkupCN.CN
     {
         private ClientesDAO op = new ClientesDAO();
 
+        public static bool ValidarCorreo(string correo)
+        {
+            // Patrón de expresión regular para validar una dirección de correo electrónico
+            string patron = @"^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$";
 
+            // Usar Regex.IsMatch para verificar si la cadena coincide con el patrón
+            bool esValido = Regex.IsMatch(correo, patron);
+
+            return esValido;
+        }
         public static bool ValidarCedula(string cedula)
         {
             //____________________________Validar Longitud_________________________
@@ -67,11 +77,8 @@ namespace LinkupCN.CN
         {
 
             mensaje = string.Empty;
-            if (!ValidarCedula(obj.Cedula))
-            {
-                mensaje = "La Cédula del cliente es inválida";
-            }
-
+         
+           
             if (string.IsNullOrEmpty(obj.Nombres) || string.IsNullOrWhiteSpace(obj.Nombres))
             {
                 mensaje = "El Nombre del cliente es obligatorio";
@@ -87,11 +94,23 @@ namespace LinkupCN.CN
             if (string.IsNullOrEmpty(obj.Cedula) || string.IsNullOrWhiteSpace(obj.Cedula))
             {
                 mensaje = "La Cedula del cliente es obligatoria";
+                if (!ValidarCedula(obj.Cedula))
+                {
+                    mensaje = "La Cédula del cliente es inválida";
+                }
             }
             if (string.IsNullOrEmpty(obj.Correo) || string.IsNullOrWhiteSpace(obj.Correo))
             {
                 mensaje = "El correo del cliente es obligatorio";
             }
+            else
+            {
+                if (!ValidarCorreo(obj.Correo))
+                {
+                    mensaje = "El correo electrónico es inválido";
+                }
+            }
+
             if (string.IsNullOrEmpty(obj.Clave) || string.IsNullOrWhiteSpace(obj.Clave))
             {
                 mensaje = "La clave del cliente es obligatoria";
@@ -103,14 +122,31 @@ namespace LinkupCN.CN
             if (string.IsNullOrEmpty(mensaje))
             {
                 string clave = obj.Clave;
-                obj.Clave = CN.RecursosCN.ConvertirSha256(clave);
-                return op.Agregar(obj, out mensaje);
-              
+
+                string asunto = "Creación de cuenta";
+                string mensaje_correo = "<h3>Su cuenta ha sido creada con éxito</h3></br><p> su contraseña es: ¡clave!</p>";
+                mensaje_correo = mensaje_correo.Replace("¡clave!", clave);
+
+
+                bool respuesta = RecursosCN.EnviarCorreo(obj.Correo, asunto, mensaje_correo);
+
+                if (respuesta)
+                {
+                    obj.Clave = RecursosCN.ConvertirSha256(clave);
+                    return op.Agregar(obj, out mensaje);
+                }
+                else
+                {
+                    mensaje = "No se pudo enviar el correo";
+                    return 0;
+                }
             }
             else
             {
                 return 0;
             }
+
+
         }
         public bool Editar(Clientes obj, out string mensaje)
         {
@@ -119,6 +155,10 @@ namespace LinkupCN.CN
             if (!ValidarCedula(obj.Cedula))
             {
                 mensaje = "La Cédula del cliente es inválida";
+            }
+            if (!ValidarCorreo(obj.Correo))
+            {
+                mensaje = "El correo electronico es inválido";
             }
             if (string.IsNullOrEmpty(obj.Nombres) || string.IsNullOrWhiteSpace(obj.Nombres))
             {
