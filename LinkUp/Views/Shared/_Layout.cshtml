@@ -8,6 +8,19 @@
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
     @Styles.Render("~/Content/css")
     @* @Scripts.Render("~/bundles/modernizr")*@
+
+    <style>
+        #sidenavAccordion {
+            background-color: white;
+            border-inline-end: 1px solid gray;
+        }
+        .nav-link, .titles{
+            color: grey !important;
+        }
+        .icon{
+            color: #ff6a00 !important;
+        }
+    </style>
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -33,27 +46,27 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Resumen</div>
+                        <div class="sb-sidenav-menu-heading titles">Resumen</div>
                         <a class="nav-link" href="@Url.Action("Index","Home")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
                         <a class="nav-link" href="@Url.Action("Clientes","Home")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                            <div class="sb-nav-link-icon icon"><i class="fas fa-users"></i></div>
                             Clientes
                         </a>
 
-                        <div class="sb-sidenav-menu-heading">Mantenimiento</div>
+                        <div class="sb-sidenav-menu-heading titles">Mantenimiento</div>
                         <a class="nav-link" href="@Url.Action("Categoria","Mantenedor")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            <div class="sb-nav-link-icon icon"><i class="fas fa-table"></i></div>
                             Header
                         </a>
                         <a class="nav-link" href="@Url.Action("Marca","Mantenedor")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-bookmark"></i></div>
+                            <div class="sb-nav-link-icon icon"><i class="fas fa-bookmark"></i></div>
                             Header
                         </a>
                         <a class="nav-link" href="@Url.Action("Producto","Mantenedor")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-boxes"></i></div>
+                            <div class="sb-nav-link-icon icon"><i class="fas fa-boxes"></i></div>
                             Header
                         </a>
                     </div>
