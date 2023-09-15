@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Banco">
+          <Key>
+            <PropertyRef Name="Id_Banco" />
+          </Key>
+          <Property Name="Id_Banco" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreBanco" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
         <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="Id" />
@@ -18,8 +25,174 @@
           <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Clave" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="Cuenta">
+          <Key>
+            <PropertyRef Name="Id_Cuenta" />
+          </Key>
+          <Property Name="Id_Cuenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumeroCuenta" Type="bigint" Nullable="false" />
+          <Property Name="SaldoCuenta" Type="numeric" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="BancoId" Type="int" Nullable="false" />
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Envio">
+          <Key>
+            <PropertyRef Name="Id_Envio" />
+          </Key>
+          <Property Name="Id_Envio" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="Monto" Type="numeric" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="FechaEnvio" Type="datetime" Nullable="false" />
+          <Property Name="CodigoRemitente" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="ClientesId" Type="int" Nullable="false" />
+          <Property Name="EstadoEnvio" Type="int" Nullable="false" />
+          <Property Name="BancoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EstadoEnvio">
+          <Key>
+            <PropertyRef Name="Id_Estado" />
+          </Key>
+          <Property Name="Id_Estado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Enviado" Type="bit" />
+          <Property Name="Cancelado" Type="bit" />
+          <Property Name="Finalizado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Moneda">
+          <Key>
+            <PropertyRef Name="Id_Moneda" />
+          </Key>
+          <Property Name="Id_Moneda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoMoneda" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="BancoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoCambio">
+          <Key>
+            <PropertyRef Name="Id_Cambio" />
+          </Key>
+          <Property Name="Id_Cambio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CambioDia" Type="numeric" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" Nullable="false" />
+          <Property Name="MonedaId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Cuenta__BancoId__73BA3083">
+          <End Role="Banco" Type="Self.Banco" Multiplicity="1" />
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banco">
+              <PropertyRef Name="Id_Banco" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="BancoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cuenta__IdClient__74AE54BC">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Envio__BancoId__797309D9">
+          <End Role="Banco" Type="Self.Banco" Multiplicity="1" />
+          <End Role="Envio" Type="Self.Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banco">
+              <PropertyRef Name="Id_Banco" />
+            </Principal>
+            <Dependent Role="Envio">
+              <PropertyRef Name="BancoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Envio__ClientesI__778AC167">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Envio" Type="Self.Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Envio">
+              <PropertyRef Name="ClientesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Envio__EstadoEnv__787EE5A0">
+          <End Role="EstadoEnvio" Type="Self.EstadoEnvio" Multiplicity="1" />
+          <End Role="Envio" Type="Self.Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoEnvio">
+              <PropertyRef Name="Id_Estado" />
+            </Principal>
+            <Dependent Role="Envio">
+              <PropertyRef Name="EstadoEnvio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Moneda__BancoId__7C4F7684">
+          <End Role="Banco" Type="Self.Banco" Multiplicity="1" />
+          <End Role="Moneda" Type="Self.Moneda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banco">
+              <PropertyRef Name="Id_Banco" />
+            </Principal>
+            <Dependent Role="Moneda">
+              <PropertyRef Name="BancoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TipoCambi__Moned__7F2BE32F">
+          <End Role="Moneda" Type="Self.Moneda" Multiplicity="1" />
+          <End Role="TipoCambio" Type="Self.TipoCambio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Moneda">
+              <PropertyRef Name="Id_Moneda" />
+            </Principal>
+            <Dependent Role="TipoCambio">
+              <PropertyRef Name="MonedaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Model1StoreContainer">
+          <EntitySet Name="Banco" EntityType="Self.Banco" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cuenta" EntityType="Self.Cuenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Envio" EntityType="Self.Envio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstadoEnvio" EntityType="Self.EstadoEnvio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Moneda" EntityType="Self.Moneda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoCambio" EntityType="Self.TipoCambio" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Cuenta__BancoId__73BA3083" Association="Self.FK__Cuenta__BancoId__73BA3083">
+            <End Role="Banco" EntitySet="Banco" />
+            <End Role="Cuenta" EntitySet="Cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cuenta__IdClient__74AE54BC" Association="Self.FK__Cuenta__IdClient__74AE54BC">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Cuenta" EntitySet="Cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Envio__BancoId__797309D9" Association="Self.FK__Envio__BancoId__797309D9">
+            <End Role="Banco" EntitySet="Banco" />
+            <End Role="Envio" EntitySet="Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Envio__ClientesI__778AC167" Association="Self.FK__Envio__ClientesI__778AC167">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Envio" EntitySet="Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Envio__EstadoEnv__787EE5A0" Association="Self.FK__Envio__EstadoEnv__787EE5A0">
+            <End Role="EstadoEnvio" EntitySet="EstadoEnvio" />
+            <End Role="Envio" EntitySet="Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Moneda__BancoId__7C4F7684" Association="Self.FK__Moneda__BancoId__7C4F7684">
+            <End Role="Banco" EntitySet="Banco" />
+            <End Role="Moneda" EntitySet="Moneda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TipoCambi__Moned__7F2BE32F" Association="Self.FK__TipoCambi__Moned__7F2BE32F">
+            <End Role="Moneda" EntitySet="Moneda" />
+            <End Role="TipoCambio" EntitySet="TipoCambio" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -27,6 +200,40 @@
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Clientes" EntityType="Model1.Clientes" />
+          <EntitySet Name="Banco" EntityType="Model1.Banco" />
+          <EntitySet Name="Cuenta" EntityType="Model1.Cuenta" />
+          <EntitySet Name="Envio" EntityType="Model1.Envio" />
+          <EntitySet Name="EstadoEnvio" EntityType="Model1.EstadoEnvio" />
+          <EntitySet Name="Moneda" EntityType="Model1.Moneda" />
+          <EntitySet Name="TipoCambio" EntityType="Model1.TipoCambio" />
+          <AssociationSet Name="FK__Cuenta__BancoId__73BA3083" Association="Model1.FK__Cuenta__BancoId__73BA3083">
+            <End Role="Banco" EntitySet="Banco" />
+            <End Role="Cuenta" EntitySet="Cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Envio__BancoId__797309D9" Association="Model1.FK__Envio__BancoId__797309D9">
+            <End Role="Banco" EntitySet="Banco" />
+            <End Role="Envio" EntitySet="Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Moneda__BancoId__7C4F7684" Association="Model1.FK__Moneda__BancoId__7C4F7684">
+            <End Role="Banco" EntitySet="Banco" />
+            <End Role="Moneda" EntitySet="Moneda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cuenta__IdClient__74AE54BC" Association="Model1.FK__Cuenta__IdClient__74AE54BC">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Cuenta" EntitySet="Cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Envio__ClientesI__778AC167" Association="Model1.FK__Envio__ClientesI__778AC167">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Envio" EntitySet="Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Envio__EstadoEnv__787EE5A0" Association="Model1.FK__Envio__EstadoEnv__787EE5A0">
+            <End Role="EstadoEnvio" EntitySet="EstadoEnvio" />
+            <End Role="Envio" EntitySet="Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TipoCambi__Moned__7F2BE32F" Association="Model1.FK__TipoCambi__Moned__7F2BE32F">
+            <End Role="Moneda" EntitySet="Moneda" />
+            <End Role="TipoCambio" EntitySet="TipoCambio" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Clientes">
           <Key>
@@ -40,7 +247,160 @@
           <Property Name="Cedula" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="Correo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Clave" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cuenta" Relationship="Model1.FK__Cuenta__IdClient__74AE54BC" FromRole="Clientes" ToRole="Cuenta" />
+          <NavigationProperty Name="Envio" Relationship="Model1.FK__Envio__ClientesI__778AC167" FromRole="Clientes" ToRole="Envio" />
         </EntityType>
+        <EntityType Name="Banco">
+          <Key>
+            <PropertyRef Name="Id_Banco" />
+          </Key>
+          <Property Name="Id_Banco" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreBanco" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cuenta" Relationship="Model1.FK__Cuenta__BancoId__73BA3083" FromRole="Banco" ToRole="Cuenta" />
+          <NavigationProperty Name="Envio" Relationship="Model1.FK__Envio__BancoId__797309D9" FromRole="Banco" ToRole="Envio" />
+          <NavigationProperty Name="Moneda" Relationship="Model1.FK__Moneda__BancoId__7C4F7684" FromRole="Banco" ToRole="Moneda" />
+        </EntityType>
+        <EntityType Name="Cuenta">
+          <Key>
+            <PropertyRef Name="Id_Cuenta" />
+          </Key>
+          <Property Name="Id_Cuenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroCuenta" Type="Int64" Nullable="false" />
+          <Property Name="SaldoCuenta" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="BancoId" Type="Int32" Nullable="false" />
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Banco" Relationship="Model1.FK__Cuenta__BancoId__73BA3083" FromRole="Cuenta" ToRole="Banco" />
+          <NavigationProperty Name="Clientes" Relationship="Model1.FK__Cuenta__IdClient__74AE54BC" FromRole="Cuenta" ToRole="Clientes" />
+        </EntityType>
+        <EntityType Name="Envio">
+          <Key>
+            <PropertyRef Name="Id_Envio" />
+          </Key>
+          <Property Name="Id_Envio" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="Monto" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="FechaEnvio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CodigoRemitente" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="ClientesId" Type="Int32" Nullable="false" />
+          <Property Name="EstadoEnvio" Type="Int32" Nullable="false" />
+          <Property Name="BancoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Banco" Relationship="Model1.FK__Envio__BancoId__797309D9" FromRole="Envio" ToRole="Banco" />
+          <NavigationProperty Name="Clientes" Relationship="Model1.FK__Envio__ClientesI__778AC167" FromRole="Envio" ToRole="Clientes" />
+          <NavigationProperty Name="EstadoEnvio1" Relationship="Model1.FK__Envio__EstadoEnv__787EE5A0" FromRole="Envio" ToRole="EstadoEnvio" />
+        </EntityType>
+        <EntityType Name="EstadoEnvio">
+          <Key>
+            <PropertyRef Name="Id_Estado" />
+          </Key>
+          <Property Name="Id_Estado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Enviado" Type="Boolean" />
+          <Property Name="Cancelado" Type="Boolean" />
+          <Property Name="Finalizado" Type="Boolean" />
+          <NavigationProperty Name="Envio" Relationship="Model1.FK__Envio__EstadoEnv__787EE5A0" FromRole="EstadoEnvio" ToRole="Envio" />
+        </EntityType>
+        <EntityType Name="Moneda">
+          <Key>
+            <PropertyRef Name="Id_Moneda" />
+          </Key>
+          <Property Name="Id_Moneda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoMoneda" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="BancoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Banco" Relationship="Model1.FK__Moneda__BancoId__7C4F7684" FromRole="Moneda" ToRole="Banco" />
+          <NavigationProperty Name="TipoCambio" Relationship="Model1.FK__TipoCambi__Moned__7F2BE32F" FromRole="Moneda" ToRole="TipoCambio" />
+        </EntityType>
+        <EntityType Name="TipoCambio">
+          <Key>
+            <PropertyRef Name="Id_Cambio" />
+          </Key>
+          <Property Name="Id_Cambio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CambioDia" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="FechaCambio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MonedaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Moneda" Relationship="Model1.FK__TipoCambi__Moned__7F2BE32F" FromRole="TipoCambio" ToRole="Moneda" />
+        </EntityType>
+        <Association Name="FK__Cuenta__BancoId__73BA3083">
+          <End Type="Model1.Banco" Role="Banco" Multiplicity="1" />
+          <End Type="Model1.Cuenta" Role="Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banco">
+              <PropertyRef Name="Id_Banco" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="BancoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Envio__BancoId__797309D9">
+          <End Type="Model1.Banco" Role="Banco" Multiplicity="1" />
+          <End Type="Model1.Envio" Role="Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banco">
+              <PropertyRef Name="Id_Banco" />
+            </Principal>
+            <Dependent Role="Envio">
+              <PropertyRef Name="BancoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Moneda__BancoId__7C4F7684">
+          <End Type="Model1.Banco" Role="Banco" Multiplicity="1" />
+          <End Type="Model1.Moneda" Role="Moneda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Banco">
+              <PropertyRef Name="Id_Banco" />
+            </Principal>
+            <Dependent Role="Moneda">
+              <PropertyRef Name="BancoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cuenta__IdClient__74AE54BC">
+          <End Type="Model1.Clientes" Role="Clientes" Multiplicity="1" />
+          <End Type="Model1.Cuenta" Role="Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Envio__ClientesI__778AC167">
+          <End Type="Model1.Clientes" Role="Clientes" Multiplicity="1" />
+          <End Type="Model1.Envio" Role="Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Envio">
+              <PropertyRef Name="ClientesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Envio__EstadoEnv__787EE5A0">
+          <End Type="Model1.EstadoEnvio" Role="EstadoEnvio" Multiplicity="1" />
+          <End Type="Model1.Envio" Role="Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoEnvio">
+              <PropertyRef Name="Id_Estado" />
+            </Principal>
+            <Dependent Role="Envio">
+              <PropertyRef Name="EstadoEnvio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TipoCambi__Moned__7F2BE32F">
+          <End Type="Model1.Moneda" Role="Moneda" Multiplicity="1" />
+          <End Type="Model1.TipoCambio" Role="TipoCambio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Moneda">
+              <PropertyRef Name="Id_Moneda" />
+            </Principal>
+            <Dependent Role="TipoCambio">
+              <PropertyRef Name="MonedaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -60,6 +420,67 @@
                 <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
                 <ScalarProperty Name="Nombres" ColumnName="Nombres" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Banco">
+            <EntityTypeMapping TypeName="Model1.Banco">
+              <MappingFragment StoreEntitySet="Banco">
+                <ScalarProperty Name="NombreBanco" ColumnName="NombreBanco" />
+                <ScalarProperty Name="Id_Banco" ColumnName="Id_Banco" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cuenta">
+            <EntityTypeMapping TypeName="Model1.Cuenta">
+              <MappingFragment StoreEntitySet="Cuenta">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="BancoId" ColumnName="BancoId" />
+                <ScalarProperty Name="SaldoCuenta" ColumnName="SaldoCuenta" />
+                <ScalarProperty Name="NumeroCuenta" ColumnName="NumeroCuenta" />
+                <ScalarProperty Name="Id_Cuenta" ColumnName="Id_Cuenta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Envio">
+            <EntityTypeMapping TypeName="Model1.Envio">
+              <MappingFragment StoreEntitySet="Envio">
+                <ScalarProperty Name="BancoId" ColumnName="BancoId" />
+                <ScalarProperty Name="EstadoEnvio" ColumnName="EstadoEnvio" />
+                <ScalarProperty Name="ClientesId" ColumnName="ClientesId" />
+                <ScalarProperty Name="CodigoRemitente" ColumnName="CodigoRemitente" />
+                <ScalarProperty Name="FechaEnvio" ColumnName="FechaEnvio" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="Id_Envio" ColumnName="Id_Envio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstadoEnvio">
+            <EntityTypeMapping TypeName="Model1.EstadoEnvio">
+              <MappingFragment StoreEntitySet="EstadoEnvio">
+                <ScalarProperty Name="Finalizado" ColumnName="Finalizado" />
+                <ScalarProperty Name="Cancelado" ColumnName="Cancelado" />
+                <ScalarProperty Name="Enviado" ColumnName="Enviado" />
+                <ScalarProperty Name="Id_Estado" ColumnName="Id_Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Moneda">
+            <EntityTypeMapping TypeName="Model1.Moneda">
+              <MappingFragment StoreEntitySet="Moneda">
+                <ScalarProperty Name="BancoId" ColumnName="BancoId" />
+                <ScalarProperty Name="TipoMoneda" ColumnName="TipoMoneda" />
+                <ScalarProperty Name="Id_Moneda" ColumnName="Id_Moneda" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoCambio">
+            <EntityTypeMapping TypeName="Model1.TipoCambio">
+              <MappingFragment StoreEntitySet="TipoCambio">
+                <ScalarProperty Name="MonedaId" ColumnName="MonedaId" />
+                <ScalarProperty Name="FechaCambio" ColumnName="FechaCambio" />
+                <ScalarProperty Name="CambioDia" ColumnName="CambioDia" />
+                <ScalarProperty Name="Id_Cambio" ColumnName="Id_Cambio" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
