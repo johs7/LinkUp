@@ -99,6 +99,10 @@ namespace LinkupCN.CN
                     mensaje = "La Cédula del cliente es inválida";
                 }
             }
+            else if (op.ClienteYaExiste(obj.Cedula,out mensaje))
+            {
+                mensaje = "La Cédula ya existe en la base de datos";
+            }
             if (string.IsNullOrEmpty(obj.Correo) || string.IsNullOrWhiteSpace(obj.Correo))
             {
                 mensaje = "El correo del cliente es obligatorio";
