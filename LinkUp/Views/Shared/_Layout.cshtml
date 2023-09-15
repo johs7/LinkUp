@@ -8,66 +8,76 @@
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
     @Styles.Render("~/Content/css")
     @* @Scripts.Render("~/bundles/modernizr")*@
+    <link rel="stylesheet" type="text/css" href="/Content/DataTables/css/layoutsstyles.css">
 
-<style>
-    body {
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    }
-        :root{
+    <style>
+        body {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        :root {
             --hover: #333;
         }
+
         #sidenavAccordion {
             background-color: white;
             border-inline-end: 1px solid gray;
         }
-        .leftNav{
-            overflow: hidden !important;
 
+        .leftNav {
+            overflow: hidden !important;
         }
+
         .leftSide {
             width: 80px !important;
             transition: width 0.5s !important;
         }
-        .leftSide.active{
-            width: 224px !important;
-        }
+
+            .leftSide.active {
+                width: 224px !important;
+            }
+
         .icon {
             color: #333 !important;
-            padding-inline-start: 5px;
-            padding-inline-end: 10px;
+            padding-inline-start: 4px;
+            padding-inline-end: 11px;
             transition: 0.5s;
         }
-        .icon svg {
-            width: 40px !important;
-            height: 40px !important;
-        }
+
+            .icon svg {
+                width: 40px !important;
+                height: 40px !important;
+            }
+
         .links:hover .icon svg {
             color: var(--bg);
         }
-        .nav a{
+
+        .nav a {
             white-space: nowrap;
             transition: 0.5s;
             color: gray !important;
         }
-        .nav a:hover {
-            color: var(--bg) !important;
-            white-space: nowrap;
-            transition: 0.5s;
-        }
-        .links:hover{
+
+            .nav a:hover {
+                color: var(--bg) !important;
+                white-space: nowrap;
+                transition: 0.5s;
+            }
+
+        .links:hover {
             background-color: var(--hover);
             border-top-left-radius: 50px;
             border-bottom-left-radius: 50px;
         }
-        .leftSide.active .titles{
+
+        .leftSide.active .titles {
             color: #257374 !important;
         }
-      
-  
-</style>
+    </style>
 </head>
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color:#1f2c38;">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="index.html">Tienda Lorinos</a>
         <!-- Sidebar Toggle-->

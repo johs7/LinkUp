@@ -1,0 +1,23 @@
+﻿@media (max-width:991.5px) {
+    .leftSide {
+        position: static !important;
+        transform: translateX(0px) !important;
+        height: auto !important;
+        width: 80px !important;
+        flex-basis: 0 !important;
+    }
+    .leftSide.active {
+        width: 175px !important;
+    }
+}
+@media (max-width:512.5px) {
+    .leftSide {
+        flex-basis: 0 !important;
+        width: 80px !important;
+        transition: width 0.5s !important;
+    }
+    .leftSide.active {
+        width: 175px !important;
+    }
+}
+
