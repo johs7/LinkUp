@@ -74,8 +74,6 @@ namespace LinkupDAO.DAO
             }
         }
 
-
-
         public bool Modificar(Clientes cli, out string mensaje)
         {
             try
@@ -99,6 +97,20 @@ namespace LinkupDAO.DAO
                 return false;
             }
         }
-
+        public bool ClienteYaExiste(string cedula, string correo, out string mensaje)
+        {
+            mensaje = string.Empty;
+            try
+            {
+                // Verificar si existe un cliente con la misma cédula o correo
+                return db.Clientes.Any(c => c.Cedula == cedula || c.Correo == correo);
+            }
+            catch (Exception ex)
+            {
+                mensaje = $"Error al verificar si el cliente existe: {ex.Message}";
+                return false;
+            }
+        }
+     
     }
 }

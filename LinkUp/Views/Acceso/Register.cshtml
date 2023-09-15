@@ -67,7 +67,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-12 mt-2">
-                                                <div id="mensajeError" class="alert alert-danger" role="alert" hidden="hidden">
+                                                <div id="mensajeError" class="alert alert-danger" role="alert">
                                                     This is a danger alert—check it out!
                                                 </div>
                                             </div>
@@ -106,6 +106,11 @@
     <!-- Tu código HTML anterior -->
     <!-- Script JavaScript con la función Guardar() incluida -->
     <script>
+
+        $(document).ready(function () {
+            $("#mensajeError").hide(); // Oculta el elemento al cargar la página
+        });
+
     function Guardar() {
         var Clientes = {
             Id: $("#txtid").val(),
@@ -116,6 +121,7 @@
             Cedula: $("#txtcedula").val(),
             Correo: $("#txtcorreo").val(),
             Clave: $("#txtpass").val(),
+          
         };
 
         // Realizar la solicitud AJAX aquí
