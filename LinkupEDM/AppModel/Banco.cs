@@ -12,27 +12,24 @@ namespace LinkupEDM.AppModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Clientes
+    public partial class Banco
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Clientes()
+        public Banco()
         {
             this.Cuenta = new HashSet<Cuenta>();
             this.Envio = new HashSet<Envio>();
+            this.Moneda = new HashSet<Moneda>();
         }
     
-        public int Id { get; set; }
-        public string Nombres { get; set; }
-        public string Apellidos { get; set; }
-        public string Direccion { get; set; }
-        public int Telefono { get; set; }
-        public string Cedula { get; set; }
-        public string Correo { get; set; }
-        public string Clave { get; set; }
+        public int Id_Banco { get; set; }
+        public string NombreBanco { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cuenta> Cuenta { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Envio> Envio { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Moneda> Moneda { get; set; }
     }
 }

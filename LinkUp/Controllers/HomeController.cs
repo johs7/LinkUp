@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using LinkupCN.CN;
-using LinkupDAO.DAO;
 using LinkupEDM.AppModel;
 using System.Web.Mvc;
 

@@ -4,8 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4dfca4477ab24876b52c81fbec91fbaa" Name="Diagram1" >
+      <Diagram DiagramId="4dfca4477ab24876b52c81fbec91fbaa" Name="Diagram1" ZoomLevel="72" >
         <EntityTypeShape EntityType="Model1.Clientes" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model1.Banco" Width="1.5" PointX="3.125" PointY="3.375" />
+        <EntityTypeShape EntityType="Model1.Cuenta" Width="1.5" PointX="8.375" PointY="1.25" />
+        <EntityTypeShape EntityType="Model1.Envio" Width="1.5" PointX="5.375" PointY="1" />
+        <EntityTypeShape EntityType="Model1.EstadoEnvio" Width="1.5" PointX="3.125" PointY="0.5" />
+        <EntityTypeShape EntityType="Model1.Moneda" Width="1.5" PointX="5.375" PointY="5.625" />
+        <EntityTypeShape EntityType="Model1.TipoCambio" Width="1.5" PointX="8.125" PointY="5.375" />
+        <AssociationConnector Association="Model1.FK__Cuenta__BancoId__73BA3083" />
+        <AssociationConnector Association="Model1.FK__Envio__BancoId__797309D9" />
+        <AssociationConnector Association="Model1.FK__Moneda__BancoId__7C4F7684" />
+        <AssociationConnector Association="Model1.FK__Cuenta__IdClient__74AE54BC" />
+        <AssociationConnector Association="Model1.FK__Envio__ClientesI__778AC167" />
+        <AssociationConnector Association="Model1.FK__Envio__EstadoEnv__787EE5A0" />
+        <AssociationConnector Association="Model1.FK__TipoCambi__Moned__7F2BE32F" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

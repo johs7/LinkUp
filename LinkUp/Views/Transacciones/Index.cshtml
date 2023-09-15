@@ -36,6 +36,16 @@
                                                     <label>Monto</label>
                                                 </div>
                                             </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <select class="form-select" id="moneda" name="Moneda">
+                                                        <option value="dolares">Dólares</option>
+                                                        <option value="cordobas">Córdobas</option>
+                                                    </select>
+                                                    <label>Moneda</label>
+                                                </div>
+                                            </div>
+
                                         </div>
 
                                         <div class="form-floating mb-3">
@@ -105,20 +115,20 @@
 
     function Guardar() {
         var Clientes = {
-            Id: $("#txtid").val(),
-            Nombres: $("#txtnombres").val(),
-            Apellidos: $("#txtapellidos").val(),
-            Direccion: $("#txtdireccion").val(),
-            Telefono: $("#txttelefono").val(),
-            Cedula: $("#txtcedula").val(),
-            Correo: $("#txtcorreo").val(),
-            Clave: $("#txtpass").val(),
+            Id_Envio: $("#txtidenvio").val(),
+            Monto: $("#txtmonto").val(),
+            FechaEnvio: $("#txtfecha").val(),
+            CodigoRemitente: $("#txtremitente").val(),
+            ClientesId: $("#txtidcliente").val(),
+            EstadoEnvio: $("#txtestadoenvio").val(),
+            BancoId: $("#txtidbanco").val(),
+       
 
         };
 
         // Realizar la solicitud AJAX aquí
         jQuery.ajax({
-            url: '@Url.Action("GuardarClientes", "Home")',
+            url: '@Url.Action("GuardarTransacciones", "Transacciones")',
             type: "POST",
             data: JSON.stringify({ obj: Clientes }),
             dataType: "json",
@@ -127,7 +137,7 @@
                 if (Clientes.Id == 0) {
                     if (data.resultado != 0) {
                         // Realizar alguna acción después de un éxito, por ejemplo, redirigir al usuario
-                        window.location.href = '@Url.Action("Index","Acceso")';
+                      
                     } else {
                         $("#mensajeError").text(data.mensaje);
                         $("#mensajeError").show();
