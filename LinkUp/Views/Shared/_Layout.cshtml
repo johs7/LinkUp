@@ -10,15 +10,53 @@
     @* @Scripts.Render("~/bundles/modernizr")*@
 
     <style>
+        :root{
+            --hover: #333;
+        }
         #sidenavAccordion {
             background-color: white;
             border-inline-end: 1px solid gray;
         }
-        .nav-link, .titles{
-            color: grey !important;
+        .leftNav{
+            overflow: hidden !important;
         }
-        .icon{
-            color: #ff6a00 !important;
+        .leftSide {
+            width: 80px !important;
+            transition: width 0.5s !important;
+        }
+        .leftSide.active{
+            width: 224px !important;
+        }
+        .icon {
+            color: #333 !important;
+            padding-inline-start: 5px;
+            padding-inline-end: 10px;
+            transition: 0.5s;
+        }
+        .icon svg {
+            width: 40px !important;
+            height: 40px !important;
+        }
+        .links:hover .icon svg {
+            color: var(--bg);
+        }
+        .nav a{
+            white-space: nowrap;
+            transition: 0.5s;
+            color: gray !important;
+        }
+        .nav a:hover {
+            color: var(--bg) !important;
+            white-space: nowrap;
+            transition: 0.5s;
+        }
+        .links:hover{
+            background-color: var(--hover);
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+        }
+        .leftSide.active .titles{
+            color: #257374 !important;
         }
     </style>
 </head>
@@ -42,38 +80,34 @@
         </ul>
     </nav>
     <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
+        <div id="layoutSidenav_nav" class="leftSide">
+            <nav class="sb-sidenav accordion sb-sidenav-dark leftSide-content" id="sidenavAccordion">
+                <div class="sb-sidenav-menu leftNav">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading titles">Resumen</div>
-                        <a class="nav-link" href="@Url.Action("Index","Home")">
+                        <a class="nav-link links" href="@Url.Action("Index","Home")" style="--bg:#ffa117;">
                             <div class="sb-nav-link-icon icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
-                        <a class="nav-link" href="@Url.Action("Clientes","Home")">
+                        <a class="nav-link links" href="@Url.Action("Clientes","Home")"style="--bg:#f44336;">
                             <div class="sb-nav-link-icon icon"><i class="fas fa-users"></i></div>
                             Clientes
                         </a>
 
                         <div class="sb-sidenav-menu-heading titles">Mantenimiento</div>
-                        <a class="nav-link" href="@Url.Action("Categoria","Mantenedor")">
+                        <a class="nav-link links" href="@Url.Action("Categoria","Mantenedor")"style="--bg:#0fc70f;">
                             <div class="sb-nav-link-icon icon"><i class="fas fa-table"></i></div>
                             Header
                         </a>
-                        <a class="nav-link" href="@Url.Action("Marca","Mantenedor")">
+                        <a class="nav-link links" href="@Url.Action("Marca","Mantenedor")"style="--bg:#2196f3;">
                             <div class="sb-nav-link-icon icon"><i class="fas fa-bookmark"></i></div>
                             Header
                         </a>
-                        <a class="nav-link" href="@Url.Action("Producto","Mantenedor")">
+                        <a class="nav-link links" href="@Url.Action("Producto","Mantenedor")"style="--bg:#b145e9;">
                             <div class="sb-nav-link-icon icon"><i class="fas fa-boxes"></i></div>
                             Header
                         </a>
                     </div>
-                </div>
-                <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Start Bootstrap
                 </div>
             </nav>
         </div>
@@ -103,6 +137,14 @@
     @Scripts.Render("~/bundles/complementos")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        let menuToggle = document.getElementById("sidebarToggle");
+        let sidebar = document.querySelector(".leftSide");
 
+        menuToggle.onclick = function () {
+            menuToggle.classList.toggle('active');
+            sidebar.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
