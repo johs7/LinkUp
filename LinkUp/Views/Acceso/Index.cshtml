@@ -12,7 +12,7 @@
     <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
 <body class="bg-info d-flex justify-content-center align-items-center vh-100">
-    <form action="@Url.Action("Index","Acceso")" method="post">
+    <form action="@Url.Action("Index", "Acceso")" method="post">
         <div class="bg-white p-5 rounded-5 text-secondary shadow"
              style="width: 25rem">
             <div class="d-flex justify-content-center">
@@ -41,6 +41,18 @@
                        type="password"
                        placeholder="Contraseña" name="clave" />
             </div>
+            @{
+                if (ViewBag.Error != null)
+                {
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <div id="mensajeError" class="alert alert-danger" role="alert">
+                              @ViewBag.Error
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
 
             <button type="submit" class="btn btn-primary btn-lg btn-block mt-3 ml-3">Iniciar Sesión</button>
 
