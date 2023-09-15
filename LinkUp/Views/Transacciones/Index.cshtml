@@ -1,0 +1,148 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" lang="es" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header"><h3 class="text-center font-weight-light my-4">Realizar transacción</h3></div>
+                                <div class="card-body">
+                                    <form>
+                                        <input id="txtid" type="text" value="0" hidden="hidden" />
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <input class="form-control" type="text" id="txtidenvio" name="IdEnvio" />
+                                                    <label>Id.Envio</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input class="form-control" type="text" id="txtmonto" name="Monto" />
+                                                    <label>Monto</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" name="Fecha" id="txtfecha" type="date" />
+                                            <label>Fecha</label>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <input class="form-control" type="text" id="txtremitente" name="IdRemitente" />
+                                                    <label># de remitente</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input class="form-control" type="text" id="txtidcliente" name="IdCliente" />
+                                                    <label>Id. Cliente</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3 mb-md-0">
+                                                    <input class="form-control" type="text" id="txtestadoenvio" name="EstadoEnvio" />
+                                                    <label>Estado de envio</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input class="form-control" type="text" id="txtidbanco" name="IdBanco"/>
+                                                    <label>Id. Banco</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 mt-2">
+                                                <div id="mensajeError" class="alert alert-danger" role="alert">
+                                                    This is a danger alert—check it out!
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 mb-0">
+                                            <button type="button" class="btn btn-primary" onclick="Guardar()">Guardar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+     
+    </div>
+    <script src="~/Scripts/bootstrap.bundle.js"></script>
+    <!-- Script JavaScript con la función Guardar() incluida -->
+    <!-- Tu código HTML anterior -->
+    <!-- Script JavaScript con la función Guardar() incluida -->
+    <script>
+
+        $(document).ready(function () {
+            $("#mensajeError").hide(); // Oculta el elemento al cargar la página
+        });
+
+    function Guardar() {
+        var Clientes = {
+            Id: $("#txtid").val(),
+            Nombres: $("#txtnombres").val(),
+            Apellidos: $("#txtapellidos").val(),
+            Direccion: $("#txtdireccion").val(),
+            Telefono: $("#txttelefono").val(),
+            Cedula: $("#txtcedula").val(),
+            Correo: $("#txtcorreo").val(),
+            Clave: $("#txtpass").val(),
+
+        };
+
+        // Realizar la solicitud AJAX aquí
+        jQuery.ajax({
+            url: '@Url.Action("GuardarClientes", "Home")',
+            type: "POST",
+            data: JSON.stringify({ obj: Clientes }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (Clientes.Id == 0) {
+                    if (data.resultado != 0) {
+                        // Realizar alguna acción después de un éxito, por ejemplo, redirigir al usuario
+                        window.location.href = '@Url.Action("Index","Acceso")';
+                    } else {
+                        $("#mensajeError").text(data.mensaje);
+                        $("#mensajeError").show();
+                    }
+                } else {
+                    $("#mensajeError").text(data.mensaje);
+                }
+            },
+            error: function (error) {
+                $("#mensajeError").text("Error en la solicitud AJAX");
+                $("#mensajeError").show();
+            }
+        });
+    }
+    </script>
+</body>
+</html>
+

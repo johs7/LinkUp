@@ -163,6 +163,7 @@
   <ItemGroup>
     <Compile Include="CN\ClientesCN.cs" />
     <Compile Include="CN\RecursosCN.cs" />
+    <Compile Include="CN\TransaccionCN.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

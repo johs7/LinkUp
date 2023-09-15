@@ -10,7 +10,9 @@
     @* @Scripts.Render("~/bundles/modernizr")*@
 
 <style>
-
+    body {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
         :root{
             --hover: #333;
         }
@@ -98,10 +100,10 @@
                             Clientes
                         </a>
 
-                        <div class="sb-sidenav-menu-heading titles">Mantenimiento</div>
-                        <a class="nav-link links" href="@Url.Action("Categoria","Mantenedor")" style="--bg:#0fc70f;">
-                            <div class="sb-nav-link-icon icon"><i class="fas fa-table"></i></div>
-                            Header
+                        <div class="sb-sidenav-menu-heading titles">Transacciones</div>
+                        <a class="nav-link links" href="@Url.Action("Index","Transacciones")" style="--bg:#0fc70f;">
+                            <div class="sb-nav-link-icon icon"><i class="fas fa-boxes"></i></div>
+                            Enviar
                         </a>
                         <a class="nav-link links" href="@Url.Action("Marca","Mantenedor")" style="--bg:#2196f3;">
                             <div class="sb-nav-link-icon icon"><i class="fas fa-bookmark"></i></div>
@@ -121,18 +123,7 @@
                     @RenderBody()
                 </div>
             </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+          
         </div>
     </div>
 
