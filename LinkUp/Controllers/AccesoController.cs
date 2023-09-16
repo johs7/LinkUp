@@ -34,7 +34,7 @@ namespace LinkUp.Controllers
             else
             {
                 ViewBag.Error = null;
-                return RedirectToAction("Clientes", "Home");
+                return RedirectToAction("Index", "Home");
             }
           
         }
