@@ -38,5 +38,21 @@ namespace LinkUp.Controllers
             }
           
         }
+        public JsonResult GuardarClientes(Clientes obj)
+        {
+            object resultado;
+            string mensaje = string.Empty;
+
+            if (obj.Id == 0)
+            {
+                resultado = new ClientesCN().Agregar(obj, out mensaje);
+            }
+            else
+            {
+                resultado = new ClientesCN().Editar(obj, out mensaje);
+            }
+
+            return Json(new { resultado = resultado, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
