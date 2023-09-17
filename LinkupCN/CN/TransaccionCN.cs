@@ -20,24 +20,23 @@ namespace LinkupCN.CN
         {
 
             mensaje = string.Empty;
-
             if (obj.Monto == 0)
             {
-                mensaje = "";
+                mensaje = "Ingrese el monto a digitar";
             }
             if (obj.FechaEnvio == null || obj.FechaEnvio == DateTime.MinValue)
             {
-                mensaje = "";
+                mensaje = "Ingrese la fecha de la transaccion";
             }
 
             if (string.IsNullOrEmpty(obj.CodigoRemitente) || string.IsNullOrWhiteSpace(obj.CodigoRemitente))
             {
-                mensaje = "";
+                mensaje = "Ingrese el codigo del remitente";
 
             }
             if (obj.ClientesId == 0)
             {
-                mensaje = "";
+                mensaje = "Ingrese  el id del cliente";
             }
             if (string.IsNullOrEmpty(mensaje))
             {
@@ -55,21 +54,21 @@ namespace LinkupCN.CN
 
             if (obj.Monto == 0)
             {
-                mensaje = "";
+                mensaje = "Ingrese el monto a digitar";
             }
             if (obj.FechaEnvio == null || obj.FechaEnvio == DateTime.MinValue)
             {
-                mensaje = "";
+                mensaje = "Ingrese la fecha de la transaccion";
             }
 
             if (string.IsNullOrEmpty(obj.CodigoRemitente) || string.IsNullOrWhiteSpace(obj.CodigoRemitente))
             {
-                mensaje = "";
+                mensaje = "Ingrese el codigo del remitente";
 
             }
             if (obj.ClientesId == 0)
             {
-                mensaje = "";
+                mensaje = "Ingrese  el id del cliente";
             }
             if (string.IsNullOrEmpty(mensaje))
             {

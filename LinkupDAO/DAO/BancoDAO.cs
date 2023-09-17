@@ -8,18 +8,18 @@ using System.Data.Entity;
 
 namespace LinkupDAO.DAO
 {
-    public class TransaccionDAO
+    public class BancoDAO
     {
         Model1Container db = new Model1Container();
-        public int Agregar( Envio trans, out string mensaje)
+        public int Agregar(Banco bcn, out string mensaje)
         {
             try
             {
-                db.Envio.Add(trans);
+                db.Banco.Add(bcn);
                 int result = db.SaveChanges();
                 if (result > 0)
                 {
-                    mensaje = " agregado exitosamente";
+                    mensaje = "agregado exitosamente";
                 }
                 else
                 {
@@ -34,21 +34,21 @@ namespace LinkupDAO.DAO
             }
         }
 
-        public List<Envio> Listar()
+        public List<Banco> Listar()
         {
-            return (db.Envio.ToList());
+            return (db.Banco.ToList());
 
         }
 
-        public bool Eliminar(string id, out string mensaje)
+        public bool Eliminar(int id, out string mensaje)
         {
             try
             {
-                Envio trans = db.Envio.FirstOrDefault(c => c.Id_Envio == id);
+                Banco bcn = db.Banco.FirstOrDefault(c => c.Id_Banco == id);
 
-                if (trans != null)
+                if (bcn != null)
                 {
-                    db.Envio.Remove(trans);
+                    db.Banco.Remove(bcn);
                     int result = db.SaveChanges();
                     if (result > 0)
                     {
@@ -63,37 +63,37 @@ namespace LinkupDAO.DAO
                 }
                 else
                 {
-                    mensaje = " no encontrado";
+                    mensaje = "Cliente no encontrado";
                     return false;
                 }
             }
             catch (Exception ex)
             {
-                mensaje = $"Error al eliminar el cliente: {ex.Message}";
+                mensaje = $"Error al eliminar: {ex.Message}";
                 return false;
             }
         }
 
-        public bool Modificar(Envio trans, out string mensaje)
+        public bool Modificar(Banco bcn, out string mensaje)
         {
             try
             {
-                db.Entry(trans).State = EntityState.Modified;
+                db.Entry(bcn).State = EntityState.Modified;
                 int result = db.SaveChanges();
                 if (result > 0)
                 {
-                    mensaje = "Cliente modificado exitosamente";
+                    mensaje = "Banco modificado exitosamente";
                     return true;
                 }
                 else
                 {
-                    mensaje = "No se pudo modificar el cliente";
+                    mensaje = "No se pudo modificar el Banco";
                     return false;
                 }
             }
             catch (Exception ex)
             {
-                mensaje = $"Error al modificar el cliente: {ex.Message}";
+                mensaje = $"Error al modificar e: {ex.Message}";
                 return false;
             }
         }

@@ -161,6 +161,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CN\BancoCN.cs" />
     <Compile Include="CN\ClientesCN.cs" />
     <Compile Include="CN\RecursosCN.cs" />
     <Compile Include="CN\TransaccionCN.cs" />
