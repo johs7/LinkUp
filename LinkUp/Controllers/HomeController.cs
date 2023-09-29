@@ -28,6 +28,5 @@ namespace LinkUp.Controllers
 
             return View();
         }
-      
     }
 }

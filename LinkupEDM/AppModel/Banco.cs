@@ -18,7 +18,6 @@ namespace LinkupEDM.AppModel
         public Banco()
         {
             this.Cuenta = new HashSet<Cuenta>();
-            this.Envio = new HashSet<Envio>();
             this.Moneda = new HashSet<Moneda>();
         }
     
@@ -27,8 +26,6 @@ namespace LinkupEDM.AppModel
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cuenta> Cuenta { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Envio> Envio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Moneda> Moneda { get; set; }
     }

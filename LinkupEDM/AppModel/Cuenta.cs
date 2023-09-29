@@ -19,6 +19,7 @@ namespace LinkupEDM.AppModel
         public decimal SaldoCuenta { get; set; }
         public int BancoId { get; set; }
         public int IdCliente { get; set; }
+        public bool Predeterminada { get; set; }
     
         public virtual Banco Banco { get; set; }
         public virtual Clientes Clientes { get; set; }

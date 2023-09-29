@@ -20,9 +20,7 @@ namespace LinkupEDM.AppModel
         public string CodigoRemitente { get; set; }
         public int ClientesId { get; set; }
         public int EstadoEnvio { get; set; }
-        public int BancoId { get; set; }
     
-        public virtual Banco Banco { get; set; }
         public virtual Clientes Clientes { get; set; }
         public virtual EstadoEnvio EstadoEnvio1 { get; set; }
     }

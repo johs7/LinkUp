@@ -97,5 +97,22 @@ namespace LinkupDAO.DAO
                 return false;
             }
         }
+
+        public string IdEnvio()
+        {
+            Random random = new Random();
+            var id = "Env" + random.Next(0, 1000).ToString();
+            var verificar = db.Envio.DefaultIfEmpty(null).FirstOrDefault(e => e.Id_Envio == id);
+            if (verificar == null)
+                return id;
+            else
+                return "Env" + random.Next(0, 1000).ToString();
+        }
+
+        public string ClientReceiver(int id)
+        {
+            var receiver = db.Clientes.DefaultIfEmpty(null).FirstOrDefault(c => c.Id == id);
+            return receiver != null ? receiver.Nombres+" "+receiver.Apellidos : null;
+        }
     }
 }

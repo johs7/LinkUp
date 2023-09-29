@@ -1,4 +1,5 @@
 ﻿
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -56,32 +57,17 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" type="text" id="txtremitente" name="IdRemitente" />
-                                                    <label># de remitente</label>
+                                                    <input class="form-control" type="text" id="txtidreceptor" name="IdReceptor" />
+                                                    <label># de receptor</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                    <input class="form-control" type="text" id="txtidcliente" name="IdCliente" />
-                                                    <label>Id. Cliente</label>
+                                                    <input class="form-control" type="text" id="txtnombre" name="NombreReceptor" />
+                                                    <label>Nombre</label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" type="text" id="txtestadoenvio" name="EstadoEnvio" />
-                                                    <label>Estado de envio</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating">
-                                                    <input class="form-control" type="text" id="txtidbanco" name="IdBanco"/>
-                                                    <label>Id. Banco</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                         <div class="row">
                                             <div class="col-12 mt-2">
                                                 <div id="mensajeError" class="alert alert-danger" role="alert">
@@ -90,7 +76,8 @@
                                             </div>
                                         </div>
                                         <div class="mt-4 mb-0">
-                                            <button type="button" class="btn btn-primary" onclick="Guardar()">Guardar</button>
+                                            <button type="button" class="btn btn-primary" onclick="Realizar()">Realizar</button>
+                                            <button type="button" class="btn btn-primary" onclick="Search()">Search Client</button>
                                         </div>
                                     </form>
                                 </div>
@@ -113,8 +100,46 @@
             $("#mensajeError").hide(); // Oculta el elemento al cargar la página
         });
 
-    function Guardar() {
-        var Clientes = {
+        //Genera el id de la transacción
+        $(document).ready(function () {
+            $.ajax({
+                url: 'Transacciones/IdEnvio',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $("#txtidenvio").val(data);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+        });
+
+        //asigna la fecha de la transacción
+        $(document).ready(function () {
+            var currentDate = new Date();
+            var formattedDate = currentDate.toISOString().slice(0, 10);
+            $("#txtfecha").val(formattedDate);
+        });
+
+        function Search() {
+            var id = $("#txtidreceptor").val();
+
+            $.ajax({
+                url: "/Transacciones/SearchClient",
+                data: { idreceiver: id },
+                type: "POST",
+                success: function (data) {
+                    $("#txtnombre").val(data);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+        }
+
+        @*function Realizar() {
+            var Clientes = {
             Id_Envio: $("#txtidenvio").val(),
             Monto: $("#txtmonto").val(),
             FechaEnvio: $("#txtfecha").val(),
@@ -122,36 +147,33 @@
             ClientesId: $("#txtidcliente").val(),
             EstadoEnvio: $("#txtestadoenvio").val(),
             BancoId: $("#txtidbanco").val(),
-       
+            };
 
-        };
-
-        // Realizar la solicitud AJAX aquí
-        jQuery.ajax({
-            url: '@Url.Action("GuardarTransacciones", "Transacciones")',
-            type: "POST",
-            data: JSON.stringify({ obj: Clientes }),
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (Clientes.Id == 0) {
-                    if (data.resultado != 0) {
+            jQuery.ajax({
+                url: '@Url.Action("GuardarTransacciones", "Transacciones")',
+                type: "POST",
+                data: JSON.stringify({ obj: Clientes }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (Clientes.Id == 0) {
+                        if (data.resultado != 0) {
                         // Realizar alguna acción después de un éxito, por ejemplo, redirigir al usuario
-                      
+
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
                     } else {
-                        $("#mensajeError").text(data.mensaje);
-                        $("#mensajeError").show();
+                         $("#mensajeError").text(data.mensaje);
                     }
-                } else {
-                    $("#mensajeError").text(data.mensaje);
+                },
+                error: function (error) {
+                    $("#mensajeError").text("Error en la solicitud AJAX");
+                    $("#mensajeError").show();
                 }
-            },
-            error: function (error) {
-                $("#mensajeError").text("Error en la solicitud AJAX");
-                $("#mensajeError").show();
-            }
-        });
-    }
+            });
+         }   *@
     </script>
 </body>
 </html>

@@ -37,7 +37,6 @@ namespace LinkupDAO.DAO
         public List<Clientes> Listar()
         {
             return (db.Clientes.ToList());
-
         }
 
         public bool Eliminar(int id, out string mensaje)
@@ -111,6 +110,10 @@ namespace LinkupDAO.DAO
                 return false;
             }
         }
-     
+
+        public Clientes GetClientes(string email)
+        {
+            return db.Clientes.DefaultIfEmpty(null).FirstOrDefault(c => c.Correo == email);
+        }
     }
 }

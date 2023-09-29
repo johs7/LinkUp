@@ -21,9 +21,7 @@ namespace LinkupEDM.AppModel
         }
     
         public int Id_Estado { get; set; }
-        public Nullable<bool> Enviado { get; set; }
-        public Nullable<bool> Cancelado { get; set; }
-        public Nullable<bool> Finalizado { get; set; }
+        public string Estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Envio> Envio { get; set; }
