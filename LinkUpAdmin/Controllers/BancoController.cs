@@ -15,6 +15,8 @@ namespace LinkUpAdmin.Controllers
         {
             return View();
         }
+
+
         [HttpGet]
         public JsonResult ListarBancos()
         {
@@ -24,6 +26,9 @@ namespace LinkUpAdmin.Controllers
 
             return Json(new { data = oLista }, JsonRequestBehavior.AllowGet);
         }
+
+
+
         [HttpPost]
         public JsonResult GuardarBancos(Banco obj)
         {
@@ -48,7 +53,7 @@ namespace LinkUpAdmin.Controllers
             bool respuesta = false;
             string mensaje = string.Empty;
 
-            respuesta = new ClientesCN().Eliminar(id, out mensaje);
+            respuesta = new BancoCN().Eliminar(id, out mensaje);
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
         }
     }

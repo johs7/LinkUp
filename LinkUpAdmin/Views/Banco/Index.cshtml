@@ -24,7 +24,7 @@
         <table id="tabla" class="display" style="width:100%">
             <thead>
                 <tr>
-                    <th>Id. Banco</th>
+                    <th>Id.Banco</th>
                     <th>Banco</th>
                     <th></th>
                 </tr>
@@ -49,8 +49,8 @@
                     <div class="col-sm-6">
                         <label for="txtnombres" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="txtnombrebanco" autocomplete="off">
-                    </div>                               
-               
+                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-12 mt-2">
@@ -67,3 +67,146 @@
         </div>
     </div>
 </div>
+
+
+@section scripts {
+    <style>
+        .btn-icon {
+            margin-right: 5px;
+        }
+    </style>
+    <script>
+   var tabladata; // Declarar la variable en el ámbito global
+   var filaseleccionada;
+        $(document).ready(function () {
+    tabladata = $("#tabla").dataTable({
+    responsive: true,
+        ordering: false,
+
+    "ajax": {
+        url: '@Url.Action("ListarBancos","Banco")',
+        type: "GET",
+        dataType: "json"
+    },
+    "columns": [
+        { "data": "Id_Banco"},
+        { "data": "NombreBanco" },
+        {
+            data: null,
+            defaultContent: '<button type="button" class="btn btn-primary btn-sm btn-icon btn-editar"><i class="fas fa-pen"></i></button>' +
+            '<button type="button" class="btn btn-danger btn-sm btn-icon btn-eliminar"><i class="fas fa-trash"></i></button>',
+            orderable: false,
+            searchable: false,
+            width: "100px"
+        }
+    ],
+    language: {
+        url: "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+                  }
+
+            });
+        });
+
+
+function abrirModal(json) {
+    $("#txtid").val(0);
+    $("#txtnombrebanco").val("");
+    $("#mensajeError").hide();
+
+
+    if (json != null) {
+        $("#txtid").val(json.Id_Banco);
+        $("#txtnombrebanco").val(json.NombreBanco);
+    }
+    $("#FormModal").modal("show");
+}
+
+$("#tabla tbody").on("click", '.btn-editar', function () {
+    filaseleccionada = $(this).closest("tr");
+    var data = tabladata.row(filaseleccionada).data();
+    abrirModal(data);
+})
+
+$("#tabla tbody").on("click", '.btn-eliminar', function () {
+    var usuarioseleccionado = $(this).closest("tr");
+    var data = tabladata.row(usuarioseleccionado).data();
+
+    swal({
+        title: "Estás seguro?",
+        text: "Una vez eliminado, no podrá recuperar este registro!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-primary",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "No, cancelar!",
+        closeOnConfirm: true,
+    }, function () {
+        $.ajax({
+            url: '/Banco/EliminarBancos',
+            type: "POST",
+            data: JSON.stringify({ id: data.Id_Banco }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data.resultado) {
+                    tabladata.row(usuarioseleccionado).remove().draw();
+                    swal("Eliminado!", "Su registro ha sido eliminado.", "success");
+                } else {
+                    swal("Error!", "Su registro no se ha podido eliminar.", data.mensaje, "error");
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+    console.log(data);
+});
+
+function Guardar() {
+    var Banco = {
+        Id_Banco: $("#txtid").val(),
+        NombreBanco: $("#txtnombrebanco").val(),
+
+    }
+    jQuery.ajax({
+        url: '@Url.Action("GuardarBancos", "Banco")',
+        type: "POST",
+        data: JSON.stringify({ obj: Banco }),
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            $(".modal-body").LoadingOverlay("hide");
+            if (Banco.Id_Banco == 0) {
+                if (data.resultado != 0) {
+                    Banco.Id_Banco = data.resultado;
+                    tabladata.row.add(Banco).draw(false);
+                    $("#FormModal").modal("hide");
+                } else {
+                    $("#mensajeError").text(data.mensaje);
+                    $("#mensajeError").show();
+                }
+            }
+            else {
+                tabladata.row(filaseleccionada).data(Banco).draw(false);
+            }
+        },
+        error: function (error) {
+
+            $("#mensajeError").text("Error Ajax");
+            $("#mensajeError").show();
+            $(".modal-body").LoadingOverlay("hide");
+        },
+        beforeSend: function () {
+            $(".modal-body").LoadingOverlay("show", {
+                imageresizeFactor: 2,
+                text: "Guardando...",
+                size: 14
+            })
+        },
+    });
+}
+    </script>
+}
+
+

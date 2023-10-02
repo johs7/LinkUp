@@ -9,7 +9,7 @@ namespace LinkUpAdmin
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new Bundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-3.4.1.js"));
+                        "~/Scripts/jquery-3.7.1.js"));
 
             bundles.Add(new Bundle("~/bundles/complementos").Include(
                  "~/Scripts/fontawesome/all.min.js",

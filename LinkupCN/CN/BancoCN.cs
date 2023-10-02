@@ -35,6 +35,7 @@ namespace LinkupCN.CN
             {
                 return 0;
             }
+            
 
         }
         public bool Editar(Banco obj, out string mensaje)
