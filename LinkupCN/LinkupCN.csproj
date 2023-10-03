@@ -163,6 +163,7 @@
   <ItemGroup>
     <Compile Include="CN\BancoCN.cs" />
     <Compile Include="CN\ClientesCN.cs" />
+    <Compile Include="CN\MonedaCN.cs" />
     <Compile Include="CN\RecursosCN.cs" />
     <Compile Include="CN\Sesion.cs" />
     <Compile Include="CN\TransaccionCN.cs" />

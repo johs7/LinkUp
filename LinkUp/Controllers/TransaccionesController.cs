@@ -18,7 +18,7 @@ namespace LinkUp.Controllers
 
         }
         [HttpGet]
-        public JsonResult ListarClientes()
+        public JsonResult ListarTransacciones()
         {
             List<Envio> oLista = new List<Envio>();
 
@@ -45,7 +45,7 @@ namespace LinkUp.Controllers
         }
 
         [HttpPost]
-        public JsonResult EliminarClientes(string id)
+        public JsonResult EliminarTransacciones(string id)
         {
             bool respuesta = false;
             string mensaje = string.Empty;
