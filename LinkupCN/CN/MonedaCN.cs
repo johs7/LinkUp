@@ -10,9 +10,12 @@ namespace LinkupCN.CN
 {
     public class MonedaCN
     {
+        
         private MonedaDAO op = new MonedaDAO();
+        
         public List<Moneda> Listar()
         {
+            
             return op.Listar();
         }
 
@@ -20,11 +23,11 @@ namespace LinkupCN.CN
         {
 
             mensaje = string.Empty;
-
+            
 
             if (obj.TipoMoneda == null || string.IsNullOrWhiteSpace(obj.TipoMoneda))
             {
-                mensaje = "Debe escribir el nombre del Moneda";
+                mensaje = "Debe escribir el nombre de la Moneda";
             }
             if (obj.BancoId == 0)
             {
@@ -39,6 +42,7 @@ namespace LinkupCN.CN
             {
                 return 0;
             }
+           
 
 
         }

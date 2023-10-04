@@ -6,26 +6,27 @@
 
 <ol class="breadcrumb mb-4 mt-4">
     <li class="breadcrumb-item"><a href="">Resumen</a></li>
-    <li class="breadcrumb-item active">Bancos</li>
+    <li class="breadcrumb-item active">Monedas</li>
 </ol>
 
 <div class="card">
     <div class="card-header">
-        <i class="fas fa-users me-1"></i>Lista de Bancos
+        <i class="fas fa-users me-1"></i>Lista de Monedas
     </div>
 
     <div class="card-body">
         <div class="row">
             <div class="col-12">
-                <button type="button" class="btn btn-success" onclick="abrirModal(null)">Crear Nuevo Banco</button>
+                <button type="button" class="btn btn-success" onclick="abrirModal(null)">Crear Nueva Moneda</button>
             </div>
         </div>
         <hr />
         <table id="tabla" class="display" style="width:100%">
             <thead>
                 <tr>
-                    <th>Id.Banco</th>
-                    <th>Banco</th>
+                    <th>Id Moneda</th>
+                    <th>Tipo Moneda</th>
+                    <th>Id Banco</th>
                     <th></th>
                 </tr>
             </thead>
@@ -39,7 +40,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title" id="ModalUserCreate">Crear Banco</h5>
+                <h5 class="modal-title" id="ModalUserCreate">Crear Moneda</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -47,10 +48,15 @@
 
                 <div class="row  g-2">
                     <div class="col-sm-6">
-                        <label for="txtnombres" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="txtnombrebanco" autocomplete="off">
+                        <label for="txtnombres" class="form-label">Tipo</label>
+                        <input type="text" class="form-control" id="txttipomoneda" autocomplete="off">
                     </div>
-
+                </div>
+                <div class="row  g-2">
+                    <div class="col-sm-6">
+                        <label for="txtidbanco" class="form-label">Id.Banco</label>
+                        <input type="text" class="form-control" id="txtidbanco" autocomplete="off">
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-12 mt-2">
@@ -84,13 +90,14 @@
         ordering: false,
 
     "ajax": {
-        url: '@Url.Action("ListarBancos","Banco")',
+        url: '@Url.Action("ListarMonedas","Moneda")',
         type: "GET",
         dataType: "json"
     },
-    "columns": [
-        { "data": "Id_Banco"},
-        { "data": "NombreBanco" },
+        "columns": [
+        { "data": "Id_Moneda" },
+        { "data": "TipoMoneda"},
+        { "data": "BancoId" },
         {
             data: null,
             defaultContent: '<button type="button" class="btn btn-primary btn-sm btn-icon btn-editar"><i class="fas fa-pen"></i></button>' +
@@ -110,13 +117,15 @@
 
 function abrirModal(json) {
     $("#txtid").val(0);
-    $("#txtnombrebanco").val("");
+    $("#txttipomoneda").val("");
+    $("#txtbancoid").val(0);
     $("#mensajeError").hide();
 
 
     if (json != null) {
-        $("#txtid").val(json.Id_Banco);
-        $("#txtnombrebanco").val(json.NombreBanco);
+        $("#txtid").val(json.Id_Moneda);
+        $("#txttipomoneda").val(json.TipoMoneda);
+        $("#txtbancoid").val(json.BancoId);
     }
     $("#FormModal").modal("show");
 }
@@ -142,9 +151,9 @@ $("#tabla tbody").on("click", '.btn-eliminar', function () {
         closeOnConfirm: true,
     }, function () {
         $.ajax({
-            url: '/Banco/EliminarBancos',
+            url: '/Moneda/EliminarMonedas',
             type: "POST",
-            data: JSON.stringify({ id: data.Id_Banco }),
+            data: JSON.stringify({ id: data.Id_Moneda }),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
@@ -164,23 +173,24 @@ $("#tabla tbody").on("click", '.btn-eliminar', function () {
 });
 
 function Guardar() {
-    var Banco = {
-        Id_Banco: $("#txtid").val(),
-        NombreBanco: $("#txtnombrebanco").val(),
+    var Moneda = {
+        Id_Moneda: $("#txtid").val(),
+        TipoMoneda: $("#txttipomoneda").val(),
+        BancoId: $("#txtidbanco").val(),
 
     }
     jQuery.ajax({
-        url: '@Url.Action("GuardarBancos", "Banco")',
+        url: '@Url.Action("GuardarMonedas", "Moneda")',
         type: "POST",
-        data: JSON.stringify({ obj: Banco }),
+        data: JSON.stringify({ obj: Moneda }),
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             $(".modal-body").LoadingOverlay("hide");
-            if (Banco.Id_Banco == 0) {
+            if (Moneda.Id_Moneda == 0) {
                 if (data.resultado != 0) {
-                    Banco.Id_Banco = data.resultado;
-                    tabladata.row.add(Banco).draw(false);
+                    Moneda.Id_Moneda = data.resultado;
+                    tabladata.row.add(Moneda).draw(false);
                     $("#FormModal").modal("hide");
                 } else {
                     $("#mensajeError").text(data.mensaje);
@@ -188,7 +198,7 @@ function Guardar() {
                 }
             }
             else {
-                tabladata.row(filaseleccionada).data(Banco).draw(false);
+                tabladata.row(filaseleccionada).data(Moneda).draw(false);
             }
         },
         error: function (error) {

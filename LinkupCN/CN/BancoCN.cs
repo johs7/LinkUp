@@ -20,7 +20,7 @@ namespace LinkupCN.CN
         {
 
             mensaje = string.Empty;
-
+            
          
             if (obj.NombreBanco == null || string.IsNullOrWhiteSpace(obj.NombreBanco))
             {
