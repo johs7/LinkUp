@@ -19,6 +19,7 @@ namespace LinkUpAdmin.Controllers
         [HttpGet]
         public JsonResult ListarMonedas()
         {
+            
             List<Moneda> oLista = new List<Moneda>();
 
             oLista = new MonedaCN().Listar();

@@ -26,7 +26,6 @@ namespace LinkupEDM.AppModel
         }
     
         public virtual DbSet<Clientes> Clientes { get; set; }
-        public virtual DbSet<Banco> Banco { get; set; }
         public virtual DbSet<Cuenta> Cuenta { get; set; }
         public virtual DbSet<Envio> Envio { get; set; }
         public virtual DbSet<EstadoEnvio> EstadoEnvio { get; set; }

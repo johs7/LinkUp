@@ -6,18 +6,16 @@
     <edmx:Diagrams>
       <Diagram DiagramId="4dfca4477ab24876b52c81fbec91fbaa" Name="Diagram1" ZoomLevel="94" >
         <EntityTypeShape EntityType="Model1.Clientes" Width="1.5" PointX="7.875" PointY="0.875" />
-        <EntityTypeShape EntityType="Model1.Banco" Width="1.5" PointX="8" PointY="4.125" />
         <EntityTypeShape EntityType="Model1.Cuenta" Width="1.5" PointX="10.125" PointY="1.125" />
         <EntityTypeShape EntityType="Model1.Envio" Width="1.5" PointX="5.375" PointY="1" />
         <EntityTypeShape EntityType="Model1.EstadoEnvio" Width="1.5" PointX="3.25" PointY="1.375" />
-        <EntityTypeShape EntityType="Model1.Moneda" Width="1.5" PointX="5.625" PointY="4.375" />
+        <EntityTypeShape EntityType="Model1.Moneda" Width="1.5" PointX="5.625" PointY="4.5" />
         <EntityTypeShape EntityType="Model1.TipoCambio" Width="1.5" PointX="3.625" PointY="4.375" />
-        <AssociationConnector Association="Model1.FK__Cuenta__BancoId__73BA3083" />
-        <AssociationConnector Association="Model1.FK__Moneda__BancoId__7C4F7684" />
         <AssociationConnector Association="Model1.FK__Cuenta__IdClient__74AE54BC" />
         <AssociationConnector Association="Model1.FK__Envio__ClientesI__778AC167" />
         <AssociationConnector Association="Model1.FK__Envio__EstadoEnv__787EE5A0" />
         <AssociationConnector Association="Model1.FK__TipoCambi__Moned__7F2BE32F" />
+        <AssociationConnector Association="Model1.MonedaEnvio" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

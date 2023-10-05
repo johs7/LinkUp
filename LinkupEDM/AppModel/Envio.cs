@@ -20,8 +20,10 @@ namespace LinkupEDM.AppModel
         public string CodigoRemitente { get; set; }
         public int ClientesId { get; set; }
         public int EstadoEnvio { get; set; }
+        public int MonedaId_Moneda { get; set; }
     
         public virtual Clientes Clientes { get; set; }
         public virtual EstadoEnvio EstadoEnvio1 { get; set; }
+        public virtual Moneda Moneda { get; set; }
     }
 }

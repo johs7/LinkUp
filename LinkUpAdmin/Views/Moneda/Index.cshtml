@@ -26,7 +26,7 @@
                 <tr>
                     <th>Id Moneda</th>
                     <th>Tipo Moneda</th>
-                    <th>Id Banco</th>
+                   
                     <th></th>
                 </tr>
             </thead>
@@ -52,12 +52,7 @@
                         <input type="text" class="form-control" id="txttipomoneda" autocomplete="off">
                     </div>
                 </div>
-                <div class="row  g-2">
-                    <div class="col-sm-6">
-                        <label for="txtidbanco" class="form-label">Id.Banco</label>
-                        <input type="text" class="form-control" id="txtidbanco" autocomplete="off">
-                    </div>
-                </div>
+                
                 <div class="row">
                     <div class="col-12 mt-2">
                         <div id="mensajeError" class="alert alert-danger" role="alert">
@@ -97,7 +92,7 @@
         "columns": [
         { "data": "Id_Moneda" },
         { "data": "TipoMoneda"},
-        { "data": "BancoId" },
+       
         {
             data: null,
             defaultContent: '<button type="button" class="btn btn-primary btn-sm btn-icon btn-editar"><i class="fas fa-pen"></i></button>' +
@@ -118,14 +113,13 @@
 function abrirModal(json) {
     $("#txtid").val(0);
     $("#txttipomoneda").val("");
-    $("#txtbancoid").val(0);
     $("#mensajeError").hide();
 
 
     if (json != null) {
         $("#txtid").val(json.Id_Moneda);
         $("#txttipomoneda").val(json.TipoMoneda);
-        $("#txtbancoid").val(json.BancoId);
+       
     }
     $("#FormModal").modal("show");
 }
@@ -176,7 +170,7 @@ function Guardar() {
     var Moneda = {
         Id_Moneda: $("#txtid").val(),
         TipoMoneda: $("#txttipomoneda").val(),
-        BancoId: $("#txtidbanco").val(),
+     
 
     }
     jQuery.ajax({

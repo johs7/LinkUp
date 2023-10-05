@@ -18,14 +18,15 @@ namespace LinkupEDM.AppModel
         public Moneda()
         {
             this.TipoCambio = new HashSet<TipoCambio>();
+            this.Envio = new HashSet<Envio>();
         }
     
         public int Id_Moneda { get; set; }
         public string TipoMoneda { get; set; }
-        public int BancoId { get; set; }
     
-        public virtual Banco Banco { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TipoCambio> TipoCambio { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Envio> Envio { get; set; }
     }
 }

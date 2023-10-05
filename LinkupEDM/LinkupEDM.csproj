@@ -163,9 +163,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppModel\Banco.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="AppModel\Clientes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

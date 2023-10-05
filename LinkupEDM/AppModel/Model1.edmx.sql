@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/27/2023 17:26:50
--- Generated from EDMX file: C:\Users\restr\source\repos\LinkUp\LinkupEDM\AppModel\Model1.edmx
+-- Date Created: 10/04/2023 23:18:44
+-- Generated from EDMX file: C:\Users\Johan R\Desktop\LinkUp\LinkupEDM\AppModel\Model1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,15 +17,6 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK__Cuenta__BancoId__73BA3083]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Cuenta] DROP CONSTRAINT [FK__Cuenta__BancoId__73BA3083];
-GO
-IF OBJECT_ID(N'[dbo].[FK__Envio__BancoId__797309D9]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Envio] DROP CONSTRAINT [FK__Envio__BancoId__797309D9];
-GO
-IF OBJECT_ID(N'[dbo].[FK__Moneda__BancoId__7C4F7684]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Moneda] DROP CONSTRAINT [FK__Moneda__BancoId__7C4F7684];
-GO
 IF OBJECT_ID(N'[dbo].[FK__Cuenta__IdClient__74AE54BC]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Cuenta] DROP CONSTRAINT [FK__Cuenta__IdClient__74AE54BC];
 GO
@@ -38,6 +29,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK__TipoCambi__Moned__7F2BE32F]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[TipoCambio] DROP CONSTRAINT [FK__TipoCambi__Moned__7F2BE32F];
 GO
+IF OBJECT_ID(N'[dbo].[FK_MonedaEnvio]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Envio] DROP CONSTRAINT [FK_MonedaEnvio];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -45,9 +39,6 @@ GO
 
 IF OBJECT_ID(N'[dbo].[Clientes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Clientes];
-GO
-IF OBJECT_ID(N'[dbo].[Banco]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Banco];
 GO
 IF OBJECT_ID(N'[dbo].[Cuenta]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Cuenta];
@@ -82,19 +73,11 @@ CREATE TABLE [dbo].[Clientes] (
 );
 GO
 
--- Creating table 'Banco'
-CREATE TABLE [dbo].[Banco] (
-    [Id_Banco] int IDENTITY(1,1) NOT NULL,
-    [NombreBanco] varchar(25)  NOT NULL
-);
-GO
-
 -- Creating table 'Cuenta'
 CREATE TABLE [dbo].[Cuenta] (
     [Id_Cuenta] int IDENTITY(1,1) NOT NULL,
     [NumeroCuenta] bigint  NOT NULL,
     [SaldoCuenta] decimal(7,2)  NOT NULL,
-    [BancoId] int  NOT NULL,
     [IdCliente] int  NOT NULL,
     [Predeterminada] bit  NOT NULL
 );
@@ -107,7 +90,8 @@ CREATE TABLE [dbo].[Envio] (
     [FechaEnvio] datetime  NOT NULL,
     [CodigoRemitente] varchar(7)  NOT NULL,
     [ClientesId] int  NOT NULL,
-    [EstadoEnvio] int  NOT NULL
+    [EstadoEnvio] int  NOT NULL,
+    [MonedaId_Moneda] int  NOT NULL
 );
 GO
 
@@ -121,8 +105,7 @@ GO
 -- Creating table 'Moneda'
 CREATE TABLE [dbo].[Moneda] (
     [Id_Moneda] int IDENTITY(1,1) NOT NULL,
-    [TipoMoneda] varchar(15)  NOT NULL,
-    [BancoId] int  NOT NULL
+    [TipoMoneda] varchar(15)  NOT NULL
 );
 GO
 
@@ -143,12 +126,6 @@ GO
 ALTER TABLE [dbo].[Clientes]
 ADD CONSTRAINT [PK_Clientes]
     PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id_Banco] in table 'Banco'
-ALTER TABLE [dbo].[Banco]
-ADD CONSTRAINT [PK_Banco]
-    PRIMARY KEY CLUSTERED ([Id_Banco] ASC);
 GO
 
 -- Creating primary key on [Id_Cuenta] in table 'Cuenta'
@@ -184,36 +161,6 @@ GO
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
-
--- Creating foreign key on [BancoId] in table 'Cuenta'
-ALTER TABLE [dbo].[Cuenta]
-ADD CONSTRAINT [FK__Cuenta__BancoId__73BA3083]
-    FOREIGN KEY ([BancoId])
-    REFERENCES [dbo].[Banco]
-        ([Id_Banco])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK__Cuenta__BancoId__73BA3083'
-CREATE INDEX [IX_FK__Cuenta__BancoId__73BA3083]
-ON [dbo].[Cuenta]
-    ([BancoId]);
-GO
-
--- Creating foreign key on [BancoId] in table 'Moneda'
-ALTER TABLE [dbo].[Moneda]
-ADD CONSTRAINT [FK__Moneda__BancoId__7C4F7684]
-    FOREIGN KEY ([BancoId])
-    REFERENCES [dbo].[Banco]
-        ([Id_Banco])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK__Moneda__BancoId__7C4F7684'
-CREATE INDEX [IX_FK__Moneda__BancoId__7C4F7684]
-ON [dbo].[Moneda]
-    ([BancoId]);
-GO
 
 -- Creating foreign key on [IdCliente] in table 'Cuenta'
 ALTER TABLE [dbo].[Cuenta]
@@ -273,6 +220,21 @@ GO
 CREATE INDEX [IX_FK__TipoCambi__Moned__7F2BE32F]
 ON [dbo].[TipoCambio]
     ([MonedaId]);
+GO
+
+-- Creating foreign key on [MonedaId_Moneda] in table 'Envio'
+ALTER TABLE [dbo].[Envio]
+ADD CONSTRAINT [FK_MonedaEnvio]
+    FOREIGN KEY ([MonedaId_Moneda])
+    REFERENCES [dbo].[Moneda]
+        ([Id_Moneda])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_MonedaEnvio'
+CREATE INDEX [IX_FK_MonedaEnvio]
+ON [dbo].[Envio]
+    ([MonedaId_Moneda]);
 GO
 
 -- --------------------------------------------------

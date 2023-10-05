@@ -29,10 +29,7 @@ namespace LinkupCN.CN
             {
                 mensaje = "Debe escribir el nombre de la Moneda";
             }
-            if (obj.BancoId == 0)
-            {
-                mensaje = "Debe escribir el id del Banco";
-            }
+           
 
             if (string.IsNullOrEmpty(mensaje))
             {
@@ -54,10 +51,7 @@ namespace LinkupCN.CN
             {
                 mensaje = "Debe escribir el nombre del Moneda";
             }
-            if (obj.BancoId == 0)
-            {
-                mensaje = "Debe escribir el id del Banco";
-            }
+          
             if (string.IsNullOrEmpty(mensaje))
             {
                 return op.Modificar(obj, out mensaje);
