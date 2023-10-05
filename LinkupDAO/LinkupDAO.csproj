@@ -163,6 +163,7 @@
   <ItemGroup>
     <Compile Include="DAO\ClientesDAO.cs" />
     <Compile Include="DAO\MonedaDAO.cs" />
+    <Compile Include="DAO\TipoCambioDAO.cs" />
     <Compile Include="DAO\TransaccionDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
