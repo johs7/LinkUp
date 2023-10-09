@@ -16,11 +16,11 @@ namespace LinkUpAdmin.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> MostrarTipoCambio(int year, int month, int day)
+        public async Task<JsonResult> MostrarTipoCambioDia(int year, int month, int day)
         {
             try
             {
-                double tipoCambio = await new TipoCambioCN().ObtenerTipoCambio(year, month, day);
+                double tipoCambio = await new TipoCambioCN().ObtenerTipoCambioDia(year, month, day);
 
                 var result = new { TipoCambio = tipoCambio };
 

@@ -13,7 +13,7 @@ namespace LinkupCN.CN
         private readonly string soapActionMonth = "http://servicios.bcn.gob.ni/RecuperaTC_Mes";
         private readonly string soapActionDay = "http://servicios.bcn.gob.ni/RecuperaTC_Dia";
 
-        public async Task<double> ObtenerTipoCambio(int year, int month, int day)
+        public async Task<double> ObtenerTipoCambioDia(int year, int month, int day)
         {
             double tipoCambio = await GetExchangeRateForDayAsync(year, month, day);
 
