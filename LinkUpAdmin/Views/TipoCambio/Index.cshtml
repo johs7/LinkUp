@@ -1,7 +1,127 @@
-﻿
+﻿@model double?
 @{
-    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Mostrar Tipo de Cambio";
+}
+@section styles {
+    <style>
+        /* Aquí puedes agregar tus estilos CSS */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Agrega más estilos según tus necesidades */
+    </style>
 }
 
-<h2>Index</h2>
+<h2>Mostrar Tipo de Cambio</h2>
 
+<div>
+    <label>Año:</label>
+    <input type="number" id="year" />
+    <label>Mes:</label>
+    <input type="number" id="month" />
+    <label>Día:</label>
+    <input type="number" id="day" />
+    <button onclick="Obtener()">Obtener Tipo de Cambio</button>
+    <button onclick="ObtenerMensual()">Obtener Tipo de Cambio Mensual</button>
+</div>
+
+<div id="resultadoTipoCambio">
+    <!-- Aquí se mostrará el resultado AJAX -->
+</div>
+<div id="resultadoTipoCambioMensual">
+    <table id="tablaTipoCambio">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Cambio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se agregarán las filas de datos -->
+        </tbody>
+    </table>
+</div>
+
+
+@section scripts {
+    <script>
+        function Obtener(){
+            var year = $("#year").val();
+            var month = $("#month").val();
+            var day = $("#day").val();
+
+            console.log("Año:", year);
+            console.log("Mes:", month);
+            console.log("Día:", day);
+
+            $.ajax({
+            url: '@Url.Action("MostrarTipoCambio", "TipoCambio")',
+            type: 'GET',
+                data: { year: year, month: month, day: day },
+                success: function (data) {
+                    console.log("Respuesta AJAX:", data.TipoCambio);
+                // Actualiza el div "resultadoTipoCambio" con el resultado de la solicitud
+
+                    document.getElementById("resultadoTipoCambio").innerHTML = "El tipo de cambio para ese dia es de " + data.TipoCambio;
+            },
+            error: function (error) {
+                // Maneja errores si la solicitud falla
+                console.error(error);
+            }
+            });
+        }
+        function ObtenerMensual(){
+            var year = $("#year").val();
+            var month = $("#month").val();
+
+            console.log("Año:", year);
+            console.log("Mes:", month);
+
+            $.ajax({
+            url: '@Url.Action("MostrarTipoCambioMes", "TipoCambio")',
+            type: 'GET',
+                data: { year: year, month: month},
+                success: function (data) {
+                    console.log("Respuesta AJAX:", data);
+                    var tcElements = data.getElementsByTagName('Tc');
+
+                    var tabla = document.getElementById('tablaTipoCambio');
+
+                    var tbody = tabla.getElementsByTagName('tbody')[0];
+
+                    for (var i = 0; i < tcElements.length; i++) {
+                        var fecha = tcElements[i].getElementsByTagName('Fecha')[0].textContent;
+                        var valor = tcElements[i].getElementsByTagName('Valor')[0].textContent;
+
+                        var fila = tbody.insertRow();
+
+                        var celdaFecha = fila.insertCell(0);
+                        var celdaValor = fila.insertCell(1);
+
+                        celdaFecha.innerHTML = fecha;
+                        celdaValor.innerHTML = valor;
+                    }
+                    //document.getElementById("resultadoTipoCambio").innerHTML = "El tipo de cambio para ese dia es de " + data.TipoCambio;
+            },
+            error: function (error) {
+                console.error(error);
+            }
+            });
+        }
+    </script>
+}
