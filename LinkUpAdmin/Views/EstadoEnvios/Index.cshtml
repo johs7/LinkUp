@@ -1,0 +1,53 @@
+﻿@model IEnumerable<LinkupEDM.AppModel.EstadoEnvio>
+
+@{
+    ViewBag.Title = "Estados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb mb-4 mt-4">
+    <li class="breadcrumb-item"><a href="">Resumen</a></li>
+    <li class="breadcrumb-item active">Estados</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-users me-1"></i>Lista de Estados
+    </div>
+    <div class="card-body">
+        <table id="tabla" class="display" style="width:30%">
+            <thead>
+                <tr>
+                    <th>Id estado</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="FormModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="ModalStateCreate">Crear Estado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input id="txtid" type="text" value="0" hidden="hidden" />
+                <div class="row g-2">
+                    <div class="col-sm-6">
+                        <label for="txtnombres">Id Estado</label>
+                        <input type="text" class="form-control" id="txtnombres" autocomplete="off" />
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="txtestado">Estado</label>
+                        <input type="text" class="form-control" id="txtestados" autocomplete="off" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
