@@ -4,154 +4,173 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="Model1StoreContainer">
-    <EntitySet Name="Clientes" EntityType="Model1.Store.Clientes" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Cuenta" EntityType="Model1.Store.Cuenta" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Envio" EntityType="Model1.Store.Envio" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="EstadoEnvio" EntityType="Model1.Store.EstadoEnvio" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Moneda" EntityType="Model1.Store.Moneda" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TipoCambio" EntityType="Model1.Store.TipoCambio" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK__Cuenta__IdClient__74AE54BC" Association="Model1.Store.FK__Cuenta__IdClient__74AE54BC">
-      <End Role="Clientes" EntitySet="Clientes" />
-      <End Role="Cuenta" EntitySet="Cuenta" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Envio__ClientesI__778AC167" Association="Model1.Store.FK__Envio__ClientesI__778AC167">
-      <End Role="Clientes" EntitySet="Clientes" />
-      <End Role="Envio" EntitySet="Envio" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Envio__EstadoEnv__787EE5A0" Association="Model1.Store.FK__Envio__EstadoEnv__787EE5A0">
-      <End Role="EstadoEnvio" EntitySet="EstadoEnvio" />
-      <End Role="Envio" EntitySet="Envio" />
-    </AssociationSet>
-    <AssociationSet Name="FK__TipoCambi__Moned__7F2BE32F" Association="Model1.Store.FK__TipoCambi__Moned__7F2BE32F">
-      <End Role="Moneda" EntitySet="Moneda" />
-      <End Role="TipoCambio" EntitySet="TipoCambio" />
-    </AssociationSet>
-    <AssociationSet Name="MonedaEnvio" Association="Model1.Store.MonedaEnvio">
-      <End Role="Moneda" EntitySet="Moneda" />
-      <End Role="Envio" EntitySet="Envio" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Clientes">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Nombres" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Apellidos" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Direccion" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Telefono" Type="int" Nullable="false" />
-    <Property Name="Cedula" Type="nvarchar" Nullable="false" MaxLength="16" />
-    <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Clave" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Cuenta">
-    <Key>
-      <PropertyRef Name="Id_Cuenta" />
-    </Key>
-    <Property Name="Id_Cuenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NumeroCuenta" Type="bigint" Nullable="false" />
-    <Property Name="SaldoCuenta" Type="decimal" Nullable="false" Precision="7" Scale="2" />
-    <Property Name="IdCliente" Type="int" Nullable="false" />
-    <Property Name="Predeterminada" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Envio">
-    <Key>
-      <PropertyRef Name="Id_Envio" />
-    </Key>
-    <Property Name="Id_Envio" Type="varchar" Nullable="false" MaxLength="7" />
-    <Property Name="Monto" Type="decimal" Nullable="false" Precision="7" Scale="2" />
-    <Property Name="FechaEnvio" Type="datetime" Nullable="false" />
-    <Property Name="CodigoRemitente" Type="varchar" Nullable="false" MaxLength="7" />
-    <Property Name="ClientesId" Type="int" Nullable="false" />
-    <Property Name="EstadoEnvio" Type="int" Nullable="false" />
-    <Property Name="MonedaId_Moneda" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="EstadoEnvio">
-    <Key>
-      <PropertyRef Name="Id_Estado" />
-    </Key>
-    <Property Name="Id_Estado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Moneda">
-    <Key>
-      <PropertyRef Name="Id_Moneda" />
-    </Key>
-    <Property Name="Id_Moneda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TipoMoneda" Type="varchar" Nullable="false" MaxLength="15" />
-  </EntityType>
-  <EntityType Name="TipoCambio">
-    <Key>
-      <PropertyRef Name="Id_Cambio" />
-    </Key>
-    <Property Name="Id_Cambio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CambioDia" Type="decimal" Nullable="false" Precision="7" Scale="2" />
-    <Property Name="FechaCambio" Type="datetime" Nullable="false" />
-    <Property Name="MonedaId" Type="int" Nullable="false" />
-  </EntityType>
-  <Association Name="FK__Cuenta__IdClient__74AE54BC">
-    <End Role="Clientes" Type="Model1.Store.Clientes" Multiplicity="1" />
-    <End Role="Cuenta" Type="Model1.Store.Cuenta" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Clientes">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Cuenta">
-        <PropertyRef Name="IdCliente" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__Envio__ClientesI__778AC167">
-    <End Role="Clientes" Type="Model1.Store.Clientes" Multiplicity="1" />
-    <End Role="Envio" Type="Model1.Store.Envio" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Clientes">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Envio">
-        <PropertyRef Name="ClientesId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__Envio__EstadoEnv__787EE5A0">
-    <End Role="EstadoEnvio" Type="Model1.Store.EstadoEnvio" Multiplicity="1" />
-    <End Role="Envio" Type="Model1.Store.Envio" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="EstadoEnvio">
-        <PropertyRef Name="Id_Estado" />
-      </Principal>
-      <Dependent Role="Envio">
-        <PropertyRef Name="EstadoEnvio" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__TipoCambi__Moned__7F2BE32F">
-    <End Role="Moneda" Type="Model1.Store.Moneda" Multiplicity="1" />
-    <End Role="TipoCambio" Type="Model1.Store.TipoCambio" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Moneda">
-        <PropertyRef Name="Id_Moneda" />
-      </Principal>
-      <Dependent Role="TipoCambio">
-        <PropertyRef Name="MonedaId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="MonedaEnvio">
-    <End Role="Moneda" Type="Model1.Store.Moneda" Multiplicity="1" />
-    <End Role="Envio" Type="Model1.Store.Envio" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Moneda">
-        <PropertyRef Name="Id_Moneda" />
-      </Principal>
-      <Dependent Role="Envio">
-        <PropertyRef Name="MonedaId_Moneda" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'LinkUp.dbo.Admin' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Id" />
+            
+            
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usuario" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Contraseña" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombres" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Apellidos" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Direccion" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Telefono" Type="int" Nullable="false" />
+          <Property Name="Cedula" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Clave" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cuenta">
+          <Key>
+            <PropertyRef Name="Id_Cuenta" />
+          </Key>
+          <Property Name="Id_Cuenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumeroCuenta" Type="bigint" Nullable="false" />
+          <Property Name="SaldoCuenta" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="Predeterminada" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Envio">
+          <Key>
+            <PropertyRef Name="Id_Envio" />
+          </Key>
+          <Property Name="Id_Envio" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="Monto" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="FechaEnvio" Type="datetime" Nullable="false" />
+          <Property Name="CodigoRemitente" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="ClientesId" Type="int" Nullable="false" />
+          <Property Name="EstadoEnvio" Type="int" Nullable="false" />
+          <Property Name="MonedaId_Moneda" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EstadoEnvio">
+          <Key>
+            <PropertyRef Name="Id_Estado" />
+          </Key>
+          <Property Name="Id_Estado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Moneda">
+          <Key>
+            <PropertyRef Name="Id_Moneda" />
+          </Key>
+          <Property Name="Id_Moneda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoMoneda" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoCambio">
+          <Key>
+            <PropertyRef Name="Id_Cambio" />
+          </Key>
+          <Property Name="Id_Cambio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CambioDia" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="FechaCambio" Type="datetime" Nullable="false" />
+          <Property Name="MonedaId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Cuenta__IdClient__74AE54BC">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Envio__ClientesI__778AC167">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Envio" Type="Self.Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Envio">
+              <PropertyRef Name="ClientesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Envio__EstadoEnv__787EE5A0">
+          <End Role="EstadoEnvio" Type="Self.EstadoEnvio" Multiplicity="1" />
+          <End Role="Envio" Type="Self.Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoEnvio">
+              <PropertyRef Name="Id_Estado" />
+            </Principal>
+            <Dependent Role="Envio">
+              <PropertyRef Name="EstadoEnvio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TipoCambi__Moned__7F2BE32F">
+          <End Role="Moneda" Type="Self.Moneda" Multiplicity="1" />
+          <End Role="TipoCambio" Type="Self.TipoCambio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Moneda">
+              <PropertyRef Name="Id_Moneda" />
+            </Principal>
+            <Dependent Role="TipoCambio">
+              <PropertyRef Name="MonedaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonedaEnvio">
+          <End Role="Moneda" Type="Self.Moneda" Multiplicity="1" />
+          <End Role="Envio" Type="Self.Envio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Moneda">
+              <PropertyRef Name="Id_Moneda" />
+            </Principal>
+            <Dependent Role="Envio">
+              <PropertyRef Name="MonedaId_Moneda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Model1StoreContainer">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cuenta" EntityType="Self.Cuenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Envio" EntityType="Self.Envio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstadoEnvio" EntityType="Self.EstadoEnvio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Moneda" EntityType="Self.Moneda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoCambio" EntityType="Self.TipoCambio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin" EntityType="Self.Admin" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Admin].[Id] AS [Id], 
+    [Admin].[Usuario] AS [Usuario], 
+    [Admin].[Contraseña] AS [Contraseña]
+    FROM [dbo].[Admin] AS [Admin]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Cuenta__IdClient__74AE54BC" Association="Self.FK__Cuenta__IdClient__74AE54BC">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Cuenta" EntitySet="Cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Envio__ClientesI__778AC167" Association="Self.FK__Envio__ClientesI__778AC167">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Envio" EntitySet="Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Envio__EstadoEnv__787EE5A0" Association="Self.FK__Envio__EstadoEnv__787EE5A0">
+            <End Role="EstadoEnvio" EntitySet="EstadoEnvio" />
+            <End Role="Envio" EntitySet="Envio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TipoCambi__Moned__7F2BE32F" Association="Self.FK__TipoCambi__Moned__7F2BE32F">
+            <End Role="Moneda" EntitySet="Moneda" />
+            <End Role="TipoCambio" EntitySet="TipoCambio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonedaEnvio" Association="Self.FK_MonedaEnvio">
+            <End Role="Moneda" EntitySet="Moneda" />
+            <End Role="Envio" EntitySet="Envio" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -182,6 +201,7 @@
             <End Role="Moneda" EntitySet="Moneda" />
             <End Role="Envio" EntitySet="Envio" />
           </AssociationSet>
+          <EntitySet Name="Admin" EntityType="Model1.Admin" />
         </EntityContainer>
         <EntityType Name="Clientes">
           <Key>
@@ -230,7 +250,7 @@
           </Key>
           <Property Name="Id_Estado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Envio" Relationship="Model1.FK__Envio__EstadoEnv__787EE5A0" FromRole="EstadoEnvio" ToRole="Envio" />
-          <Property Name="Estado" Type="String" Nullable="false" />
+          <Property Name="Estado" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityType Name="Moneda">
           <Key>
@@ -311,6 +331,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Contraseña" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -381,6 +409,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+          <EntitySetMapping Name="Admin">
+            <EntityTypeMapping TypeName="Model1.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

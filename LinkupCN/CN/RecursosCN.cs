@@ -30,13 +30,13 @@ namespace LinkupCN.CN
             {
                 MailMessage mail = new MailMessage();
                 mail.To.Add(correo);
-                mail.From = new MailAddress("Roquejohanssen@gmail.com");
+                mail.From = new MailAddress("pinchep47@gmail.com");
                 mail.Subject = asunto;
                 mail.Body = mensaje;
                 mail.IsBodyHtml = true;
                 var smtp = new SmtpClient()
                 {
-                    Credentials = new NetworkCredential("Roquejohanssen@gmail.com", "oyaitgdgwtfsciwr"),
+                    Credentials = new NetworkCredential("pinchep47@gmail.com", "wgcqkuvmikyzucpg"),
                     Host = "smtp.gmail.com",
                     Port = 587,
                     EnableSsl = true

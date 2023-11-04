@@ -161,6 +161,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\AdminDAO.cs" />
     <Compile Include="DAO\ClientesDAO.cs" />
     <Compile Include="DAO\MonedaDAO.cs" />
     <Compile Include="DAO\TipoCambioDAO.cs" />

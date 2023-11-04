@@ -31,7 +31,6 @@ namespace LinkUpAdmin.Controllers
         public ActionResult Clientes()
         {
           
-
             return View();
         }
         [HttpGet]

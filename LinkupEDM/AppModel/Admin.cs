@@ -12,13 +12,10 @@ namespace LinkupEDM.AppModel
     using System;
     using System.Collections.Generic;
     
-    public partial class TipoCambio
+    public partial class Admin
     {
-        public int Id_Cambio { get; set; }
-        public decimal CambioDia { get; set; }
-        public System.DateTime FechaCambio { get; set; }
-        public int MonedaId { get; set; }
-    
-        public virtual Moneda Moneda { get; set; }
+        public int Id { get; set; }
+        public string Usuario { get; set; }
+        public string Contraseña { get; set; }
     }
 }
