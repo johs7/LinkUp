@@ -11,7 +11,9 @@ namespace LinkUp.Controllers
 {
     public class AccesoController : Controller
     {
-       
+        private AdminDAO adminDAO = new AdminDAO();
+        private static string sesion = "";
+
         // GET: Acceso
         public ActionResult Index()
         {
@@ -25,11 +27,13 @@ namespace LinkUp.Controllers
         [HttpPost]
         public ActionResult Index(string usuario,string contraseña)
         {
-           Admin oAdmin= new Admin();
-            oAdmin = new AdminCN().Listar().Where(u => u.Usuario == usuario && u.Contraseña == RecursosCN.ConvertirSha256(contraseña)).FirstOrDefault();
-            if(oAdmin == null)
+            Admin oAdmin = new Admin();
+           oAdmin = new AdminCN().Listar().Where(u => u.Usuario == usuario &&
+            u.Contraseña == RecursosCN.ConvertirSha256(contraseña)).FirstOrDefault();
+            sesion = usuario;
+            if (oAdmin == null)
             {
-                ViewBag.Error = "Error";
+                ViewBag.Error = "Usuario o contraseña invalida";
                 return View();
             }
             else

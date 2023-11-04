@@ -17,8 +17,7 @@ namespace LinkupDAO.DAO
             return (db.Admin.ToList());
         }
 
-    
-     
+
         public bool AdmnistradorYaExiste(string usuario, out string mensaje)
         {
             mensaje = string.Empty;

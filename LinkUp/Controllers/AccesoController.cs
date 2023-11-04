@@ -40,6 +40,7 @@ namespace LinkUp.Controllers
                 ViewBag.Error = null;
                 return RedirectToAction("Index", "Home");
             }
+            return View();  
         }
 
         public JsonResult GetSesion()

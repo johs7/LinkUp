@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/04/2023 23:18:44
+-- Date Created: 11/03/2023 19:20:48
 -- Generated from EDMX file: C:\Users\Johan R\Desktop\LinkUp\LinkupEDM\AppModel\Model1.edmx
 -- --------------------------------------------------
 
@@ -54,6 +54,9 @@ IF OBJECT_ID(N'[dbo].[Moneda]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[TipoCambio]', 'U') IS NOT NULL
     DROP TABLE [dbo].[TipoCambio];
+GO
+IF OBJECT_ID(N'[Model1StoreContainer].[Admin]', 'U') IS NOT NULL
+    DROP TABLE [Model1StoreContainer].[Admin];
 GO
 
 -- --------------------------------------------------
@@ -118,6 +121,14 @@ CREATE TABLE [dbo].[TipoCambio] (
 );
 GO
 
+-- Creating table 'Admin'
+CREATE TABLE [dbo].[Admin] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Usuario] nvarchar(max)  NOT NULL,
+    [Contraseña] nvarchar(max)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -156,6 +167,12 @@ GO
 ALTER TABLE [dbo].[TipoCambio]
 ADD CONSTRAINT [PK_TipoCambio]
     PRIMARY KEY CLUSTERED ([Id_Cambio] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Admin'
+ALTER TABLE [dbo].[Admin]
+ADD CONSTRAINT [PK_Admin]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- --------------------------------------------------
